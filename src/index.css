@@ -1,0 +1,5 @@
+body {
+	--bg-opacity: 1;
+	background-color: #44337a;
+	background-color: rgba(68, 51, 122, var(--bg-opacity));
+}
