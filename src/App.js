@@ -33,7 +33,8 @@ function App() {
 			<form className="flex items-center justify-between mx-4 mt-4 h-16 bg-purple-600">
 				<input
 					type="text"
-					className="h-10 border-0 w-10/12 bg-purple-600"
+					placeholder="Add a new todo"
+					className="h-10ml-2 w-10/12 pl-2 placeholder-purple-900 text-gray-100 bg-purple-600 focus:outline-none"
 				/>
 				<button
 					type="submit"
@@ -54,7 +55,7 @@ function App() {
 			</form>
 			<div className="h-16 mx-4 mt-6">
 				{todos.map((todo) => (
-					<Todo todo={todo} />
+					<Todo key={todo.text} todo={todo} />
 				))}
 			</div>
 		</div>
