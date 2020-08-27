@@ -26,6 +26,9 @@ function App() {
 			status: 3,
 		},
 	]);
+
+	const [isEditable, setIsEditable] = useState(false);
+
 	return (
 		<div className="min-h-screen max-h-full w-full bg-purple-900">
 			<Date />
@@ -55,7 +58,7 @@ function App() {
 			</form>
 			<div className="h-16 mx-4 mt-6">
 				{todos.map((todo) => (
-					<Todo key={todo.text} todo={todo} />
+					<Todo key={todo.text} todo={todo} isEditable={isEditable} />
 				))}
 			</div>
 		</div>

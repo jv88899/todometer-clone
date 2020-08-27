@@ -1,6 +1,6 @@
 import React from "react";
 
-const Todo = ({ todo }) => {
+const Todo = ({ todo, isEditable }) => {
 	return (
 		<div className="flex justify-evenly items-center h-16 bg-purple-700 mb-4">
 			<span>
@@ -12,7 +12,14 @@ const Todo = ({ todo }) => {
 					<path d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z" />
 				</svg>
 			</span>
-			<span className="w-1/2 text-xs text-gray-100">{todo.text}</span>
+			{!isEditable && (
+				<span className="w-1/2 text-xs text-gray-100">{todo.text}</span>
+			)}
+			{isEditable && (
+				<form className="w-1/2 text-xs">
+					<input type="text" />
+				</form>
+			)}
 			<span>
 				<svg
 					viewBox="0 0 20 20"
