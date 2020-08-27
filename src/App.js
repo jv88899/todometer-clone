@@ -6,6 +6,9 @@ import Todo from "./components/Todo";
 
 function App() {
 	const [todos, setTodos] = useState([
+		// status: 1 = complete
+		// status: 2 = paused
+		// status: 3 = not started
 		{
 			text: "This is my first todo",
 			status: 1,
@@ -34,6 +37,11 @@ function App() {
 	]);
 
 	const [isEditable, setIsEditable] = useState(false);
+
+	const removeTodo = (id) => {
+		let newTodoList = todos.filter((todo) => todo.id !== id);
+		setTodos(newTodoList);
+	};
 
 	return (
 		<div className="min-h-screen max-h-full w-full bg-purple-900">
@@ -64,7 +72,12 @@ function App() {
 			</form>
 			<div className="h-16 mx-4 mt-6">
 				{todos.map((todo) => (
-					<Todo key={todo.text} todo={todo} isEditable={isEditable} />
+					<Todo
+						key={todo.text}
+						todo={todo}
+						isEditable={isEditable}
+						removeTodo={removeTodo}
+					/>
 				))}
 			</div>
 		</div>
