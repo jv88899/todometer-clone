@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import uid from "uid";
 import Date from "./components/Date";
 import Meter from "./components/Meter";
 import Todo from "./components/Todo";
@@ -8,22 +9,27 @@ function App() {
 		{
 			text: "This is my first todo",
 			status: 1,
+			id: uid(),
 		},
 		{
 			text: "This is my second todo",
 			status: 1,
+			id: uid(),
 		},
 		{
 			text: "This is my third todo",
 			status: 1,
+			id: uid(),
 		},
 		{
 			text: "This is my fourth todo",
 			status: 2,
+			id: uid(),
 		},
 		{
 			text: "This is my fifth todo",
 			status: 3,
+			id: uid(),
 		},
 	]);
 
