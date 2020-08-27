@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import uid from "uid";
 import Date from "./components/Date";
 import Meter from "./components/Meter";
@@ -35,7 +35,6 @@ function App() {
 			id: uid(),
 		},
 	]);
-
 	const [isEditable, setIsEditable] = useState(false);
 
 	const removeTodo = (id) => {
@@ -73,7 +72,7 @@ function App() {
 			<div className="h-16 mx-4 mt-6">
 				{todos.map((todo) => (
 					<Todo
-						key={todo.text}
+						key={todo.id}
 						todo={todo}
 						isEditable={isEditable}
 						removeTodo={removeTodo}
