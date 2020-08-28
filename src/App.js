@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import uid from "uid";
 import Date from "./components/Date";
 import Meter from "./components/Meter";
@@ -35,10 +35,12 @@ function App() {
 			id: uid(),
 		},
 	]);
+	const [currentValue, setCurrentValue] = useState("");
 	const [isEditable, setIsEditable] = useState(false);
 
 	const removeTodo = (id) => {
 		let newTodoList = todos.filter((todo) => todo.id !== id);
+		console.log(newTodoList);
 		setTodos(newTodoList);
 	};
 
@@ -51,6 +53,7 @@ function App() {
 					type="text"
 					placeholder="Add a new todo"
 					className="h-10ml-2 w-10/12 pl-2 placeholder-purple-900 text-gray-100 bg-purple-600 focus:outline-none"
+					onChange={(e) => setCurrentValue(e.target.value)}
 				/>
 				<button
 					type="submit"
