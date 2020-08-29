@@ -44,16 +44,28 @@ function App() {
 		setTodos(newTodoList);
 	};
 
+	const handleSubmit = (e) => {
+		e.preventDefault();
+
+		let inputForm = document.querySelector("input");
+		let newTodo = { text: inputForm.value, status: 3, id: 6 };
+
+		setTodos(todos.concat(newTodo));
+		inputForm.value = "";
+	};
+
 	return (
 		<div className="min-h-screen max-h-full w-full bg-purple-900">
 			<Date />
 			<Meter todos={todos} />
-			<form className="flex items-center justify-between mx-4 mt-4 h-16 bg-purple-600">
+			<form
+				onSubmit={handleSubmit}
+				className="flex items-center justify-between mx-4 mt-4 h-16 bg-purple-600"
+			>
 				<input
 					type="text"
 					placeholder="Add a new todo"
 					className="h-10ml-2 w-10/12 pl-2 placeholder-purple-900 text-gray-100 bg-purple-600 focus:outline-none"
-					onChange={(e) => setCurrentValue(e.target.value)}
 				/>
 				<button
 					type="submit"
