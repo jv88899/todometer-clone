@@ -48,7 +48,7 @@ function App() {
 		e.preventDefault();
 
 		let inputForm = document.querySelector("input");
-		let newTodo = { text: inputForm.value, status: 3, id: 6 };
+		let newTodo = { text: inputForm.value, status: 3, id: uid() };
 
 		setTodos(todos.concat(newTodo));
 		inputForm.value = "";
