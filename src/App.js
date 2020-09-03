@@ -10,38 +10,38 @@ function App() {
 		// status: 2 = paused
 		// status: 3 = not started
 		{
+			id: uid(),
 			text: "This is my first todo",
 			status: 1,
-			id: uid(),
 		},
 		{
+			id: uid(),
 			text: "This is my second todo",
 			status: 1,
-			id: uid(),
 		},
 		{
+			id: uid(),
 			text: "This is my third todo",
 			status: 1,
-			id: uid(),
 		},
 		{
+			id: uid(),
 			text: "This is my fourth todo",
 			status: 2,
-			id: uid(),
 		},
 		{
+			id: uid(),
 			text: "This is my fifth todo",
 			status: 3,
-			id: uid(),
 		},
 	]);
 	const [currentValue, setCurrentValue] = useState("");
 	const [isEditable, setIsEditable] = useState(false);
 
 	const removeTodo = (id) => {
-		let newTodoList = todos.filter((todo) => todo.id !== id);
-		console.log(newTodoList);
-		setTodos(newTodoList);
+		// let newTodoList = todos.filter((todo) => todo.id !== id);
+		// console.log(newTodoList);
+		setTodos(todos.filter((todo) => todo.id !== id));
 	};
 
 	const handleSubmit = (e) => {
