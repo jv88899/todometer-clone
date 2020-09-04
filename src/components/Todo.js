@@ -13,7 +13,9 @@ const Todo = ({ todo, isEditable, removeTodo }) => {
 				</svg>
 			</span>
 			{!isEditable && (
-				<span className="w-1/2 text-xs text-gray-100">{todo.text}</span>
+				<span className="w-1/2 text-xs text-gray-100 truncate">
+					{todo.text}
+				</span>
 			)}
 			{isEditable && (
 				<form className="w-1/2 text-xs">
