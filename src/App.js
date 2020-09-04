@@ -12,22 +12,22 @@ function App() {
 		{
 			id: uid(),
 			text: "This is my first todo",
-			status: 1,
+			status: 3,
 		},
 		{
 			id: uid(),
 			text: "This is my second todo",
-			status: 1,
+			status: 3,
 		},
 		{
 			id: uid(),
 			text: "This is my third todo",
-			status: 1,
+			status: 3,
 		},
 		{
 			id: uid(),
 			text: "This is my fourth todo",
-			status: 2,
+			status: 3,
 		},
 		{
 			id: uid(),
@@ -37,6 +37,10 @@ function App() {
 	]);
 	const [currentValue, setCurrentValue] = useState("");
 	const [isEditable, setIsEditable] = useState(false);
+
+	const completeTodo = (id) => {
+		console.log(id);
+	};
 
 	const removeTodo = (id) => {
 		// let newTodoList = todos.filter((todo) => todo.id !== id);
@@ -90,6 +94,7 @@ function App() {
 						key={todo.id}
 						todo={todo}
 						isEditable={isEditable}
+						completeTodo={completeTodo}
 						removeTodo={removeTodo}
 					/>
 				))}

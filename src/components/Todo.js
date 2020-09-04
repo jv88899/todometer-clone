@@ -1,6 +1,6 @@
 import React from "react";
 
-const Todo = ({ todo, isEditable, removeTodo }) => {
+const Todo = ({ todo, isEditable, removeTodo, completeTodo }) => {
 	return (
 		<div className="flex justify-evenly items-center h-16 bg-purple-700 mb-4">
 			<span>
@@ -48,7 +48,7 @@ const Todo = ({ todo, isEditable, removeTodo }) => {
 					/>
 				</svg>
 			</span>
-			<span>
+			<span onClick={() => completeTodo(todo.id)}>
 				<svg
 					viewBox="0 0 20 20"
 					fill="currentColor"
