@@ -79,6 +79,10 @@ function App() {
 		setCurrentValue("");
 	};
 
+	const resetProgress = () => {
+		console.log("working");
+	};
+
 	return (
 		<div className="min-h-screen max-h-full w-full bg-purple-900">
 			<DateDisplay />
@@ -127,7 +131,10 @@ function App() {
 					/>
 				))}
 			</div>
-			<div className="w-full flex align-middle justify-center pb-3 text-gray-100">
+			<div
+				onClick={resetProgress}
+				className="w-full flex align-middle justify-center pb-3 text-gray-100"
+			>
 				<p className="text-sm uppercase">Reset Progress</p>
 			</div>
 		</div>
