@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import uid from "uid";
-import Date from "./components/Date";
+import DateDisplay from "./components/DateDisplay";
 import Meter from "./components/Meter";
 import Todo from "./components/Todo";
 
@@ -27,8 +27,30 @@ function App() {
 			text: "This is my fifth todo",
 		},
 	]);
-	const [pausedTodos, setPausedTodos] = useState([]);
-	const [completedTodos, setCompletedTodos] = useState([]);
+	const [pausedTodos, setPausedTodos] = useState([
+		{
+			id: uid(),
+			text: "This todo is paused",
+		},
+		{
+			id: uid(),
+			text: "This todo is also paused",
+		},
+	]);
+	const [completedTodos, setCompletedTodos] = useState([
+		{
+			id: uid(),
+			text: "This todo is complete",
+		},
+		{
+			id: uid(),
+			text: "This todo is also complete",
+		},
+		{
+			id: uid(),
+			text: "Hey, look at that, another completed todo",
+		},
+	]);
 	const [currentValue, setCurrentValue] = useState("");
 	const [isEditable, setIsEditable] = useState(false);
 
@@ -60,7 +82,7 @@ function App() {
 
 	return (
 		<div className="min-h-screen max-h-full w-full bg-purple-900">
-			<Date />
+			<DateDisplay />
 			<Meter
 				todos={todos}
 				pausedTodos={pausedTodos}
