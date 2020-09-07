@@ -94,7 +94,8 @@ function App() {
 			>
 				<input
 					type="text"
-					placeholder={currentValue}
+					placeholder="Add a new todo"
+					value={currentValue}
 					className="h-10ml-2 w-10/12 pl-2 placeholder-purple-900 text-gray-100 bg-purple-600 focus:outline-none"
 					onChange={(e) => setCurrentValue(e.target.value)}
 				/>
