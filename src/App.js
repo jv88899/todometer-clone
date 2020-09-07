@@ -27,6 +27,8 @@ function App() {
 			text: "This is my fifth todo",
 		},
 	]);
+	const [pausedTodos, setPausedTodos] = useState([]);
+	const [completedTodos, setCompletedTodos] = useState([]);
 	const [currentValue, setCurrentValue] = useState("");
 	const [isEditable, setIsEditable] = useState(false);
 
