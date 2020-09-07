@@ -73,11 +73,10 @@ function App() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		let inputForm = document.querySelector("input");
-		let newTodo = { text: inputForm.value, id: uid() };
+		let newTodo = { text: currentValue, id: uid() };
 
 		setTodos(todos.concat(newTodo));
-		inputForm.value = "";
+		setCurrentValue("");
 	};
 
 	return (
