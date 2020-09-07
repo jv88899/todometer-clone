@@ -1,9 +1,15 @@
 import React from "react";
 
-const Meter = ({ todos }) => {
+const Meter = ({ todos, completedTodos }) => {
 	return (
 		<div className="w-full h-4">
 			<div className="flex bg-purple-700 h-full mt-8 mx-4 rounded-sm">
+				{completedTodos.map((todo) => (
+					<div
+						key={todo.id}
+						className="h-4 bg-green-500 flex-grow"
+					></div>
+				))}
 				{/*{todos
 					.sort((a, b) => a.status - b.status)
 					.map((todo) => {
