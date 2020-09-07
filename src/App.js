@@ -80,7 +80,9 @@ function App() {
 	};
 
 	const resetProgress = () => {
-		console.log("working");
+		setTodos([]);
+		setPausedTodos([]);
+		setCompletedTodos([]);
 	};
 
 	return (
