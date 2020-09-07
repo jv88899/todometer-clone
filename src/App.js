@@ -36,6 +36,12 @@ function App() {
 		setTodos(todos.filter((todo) => todo.id !== id));
 	};
 
+	const pauseTodo = (todo) => {
+		let newPausedTodos = pausedTodos.concat(todo);
+		setPausedTodos(newPausedTodos);
+		removeTodo(todo.id);
+	};
+
 	const completeTodo = (todo) => {
 		let newCompletedTodos = completedTodos.concat(todo);
 		setCompletedTodos(newCompletedTodos);
@@ -89,6 +95,7 @@ function App() {
 						todo={todo}
 						isEditable={isEditable}
 						removeTodo={removeTodo}
+						pauseTodo={pauseTodo}
 						completeTodo={completeTodo}
 					/>
 				))}
