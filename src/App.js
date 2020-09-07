@@ -37,7 +37,9 @@ function App() {
 	};
 
 	const completeTodo = (todo) => {
-		console.log(todo);
+		let newCompletedTodos = completedTodos.concat(todo);
+		setCompletedTodos(newCompletedTodos);
+		removeTodo(todo.id);
 	};
 
 	const handleSubmit = (e) => {
