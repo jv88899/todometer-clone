@@ -4,7 +4,7 @@ const Meter = ({ todos }) => {
 	return (
 		<div className="w-full h-4">
 			<div className="flex bg-purple-700 h-full mt-8 mx-4 rounded-sm">
-				{todos
+				{/*{todos
 					.sort((a, b) => a.status - b.status)
 					.map((todo) => {
 						if (todo.status === 1) {
@@ -33,7 +33,7 @@ const Meter = ({ todos }) => {
 						} else {
 							return null;
 						}
-					})}
+					})}*/}
 			</div>
 		</div>
 	);
