@@ -10,6 +10,9 @@ const Meter = ({ todos, completedTodos }) => {
 						className="h-4 bg-green-500 flex-grow"
 					></div>
 				))}
+				{todos.map((todo) => (
+					<div key={todo.id} className="h-4 flex-grow"></div>
+				))}
 				{/*{todos
 					.sort((a, b) => a.status - b.status)
 					.map((todo) => {
