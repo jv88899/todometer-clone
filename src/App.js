@@ -6,41 +6,31 @@ import Todo from "./components/Todo";
 
 function App() {
 	const [todos, setTodos] = useState([
-		// status: 1 = complete
-		// status: 2 = paused
-		// status: 3 = not started
 		{
 			id: uid(),
 			text: "This is my first todo",
-			status: 3,
 		},
 		{
 			id: uid(),
 			text: "This is my second todo",
-			status: 3,
 		},
 		{
 			id: uid(),
 			text: "This is my third todo",
-			status: 3,
 		},
 		{
 			id: uid(),
 			text: "This is my fourth todo",
-			status: 3,
 		},
 		{
 			id: uid(),
 			text: "This is my fifth todo",
-			status: 3,
 		},
 	]);
 	const [currentValue, setCurrentValue] = useState("");
 	const [isEditable, setIsEditable] = useState(false);
 
 	const removeTodo = (id) => {
-		// let newTodoList = todos.filter((todo) => todo.id !== id);
-		// console.log(newTodoList);
 		setTodos(todos.filter((todo) => todo.id !== id));
 	};
 
@@ -48,7 +38,7 @@ function App() {
 		e.preventDefault();
 
 		let inputForm = document.querySelector("input");
-		let newTodo = { text: inputForm.value, status: 3, id: uid() };
+		let newTodo = { text: inputForm.value, id: uid() };
 
 		setTodos(todos.concat(newTodo));
 		inputForm.value = "";
@@ -90,7 +80,6 @@ function App() {
 						key={todo.id}
 						todo={todo}
 						isEditable={isEditable}
-						completeTodo={completeTodo}
 						removeTodo={removeTodo}
 					/>
 				))}
