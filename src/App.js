@@ -61,7 +61,11 @@ function App() {
 	return (
 		<div className="min-h-screen max-h-full w-full bg-purple-900">
 			<Date />
-			<Meter todos={todos} completedTodos={completedTodos} />
+			<Meter
+				todos={todos}
+				pausedTodos={pausedTodos}
+				completedTodos={completedTodos}
+			/>
 			<form
 				onSubmit={handleSubmit}
 				className="flex items-center justify-between mx-4 mt-4 h-16 bg-purple-600"
