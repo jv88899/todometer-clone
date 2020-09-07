@@ -114,7 +114,7 @@ function App() {
 					</svg>
 				</button>
 			</form>
-			<div className="h-16 mx-4 mt-6">
+			<div className="mx-4 mt-6">
 				{todos.map((todo) => (
 					<Todo
 						key={todo.id}
@@ -125,6 +125,9 @@ function App() {
 						completeTodo={completeTodo}
 					/>
 				))}
+			</div>
+			<div className="w-full flex align-middle justify-center pb-3 text-gray-100">
+				<p className="text-sm uppercase">Reset Progress</p>
 			</div>
 		</div>
 	);
