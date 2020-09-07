@@ -36,6 +36,10 @@ function App() {
 		setTodos(todos.filter((todo) => todo.id !== id));
 	};
 
+	const completeTodo = (todo) => {
+		console.log(todo);
+	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
@@ -83,6 +87,7 @@ function App() {
 						todo={todo}
 						isEditable={isEditable}
 						removeTodo={removeTodo}
+						completeTodo={completeTodo}
 					/>
 				))}
 			</div>
