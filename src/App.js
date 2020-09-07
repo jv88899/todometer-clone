@@ -38,10 +38,6 @@ function App() {
 	const [currentValue, setCurrentValue] = useState("");
 	const [isEditable, setIsEditable] = useState(false);
 
-	const completeTodo = (id) => {
-		console.log(id);
-	};
-
 	const removeTodo = (id) => {
 		// let newTodoList = todos.filter((todo) => todo.id !== id);
 		// console.log(newTodoList);
