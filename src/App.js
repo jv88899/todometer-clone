@@ -135,7 +135,7 @@ function App() {
 			</div>
 			{pausedTodos.length > 0 && (
 				<div className="mb-4">
-					<div className="flex mx-2 mt-6 h-6 text-gray-100 items-center align-middle">
+					<div className="flex mx-2 mt-6 h-6 text-gray-100 items-center">
 						<svg
 							viewBox="0 0 20 20"
 							fill="currentColor"
@@ -147,7 +147,25 @@ function App() {
 								clipRule="evenodd"
 							/>
 						</svg>
-						<h2 className="text-xl">Do Later</h2>
+						<h2 className="text-xl font-semibold">Do Later</h2>
+					</div>
+				</div>
+			)}
+			{completedTodos.length > 0 && (
+				<div className="mb-4">
+					<div className="flex mx-2 mt-6 h-6 text-gray-100">
+						<svg
+							viewBox="0 0 20 20"
+							fill="currentColor"
+							className="chevron-right w-8 h-8"
+						>
+							<path
+								fillRule="evenodd"
+								d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+								clipRule="evenodd"
+							/>
+						</svg>
+						<h2 className="text-xl font-semibold">Completed</h2>
 					</div>
 				</div>
 			)}
