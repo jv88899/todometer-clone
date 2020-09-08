@@ -133,12 +133,19 @@ function App() {
 					/>
 				))}
 			</div>
-			<div
+			<button
 				onClick={resetProgress}
-				className="w-full flex align-middle justify-center pb-3 text-gray-100"
+				className="w-full flex align-middle justify-center pb-3 text-gray-100 text-sm uppercase"
+				disabled={
+					!(
+						todos.length > 0 ||
+						pausedTodos.length > 0 ||
+						completedTodos.length > 0
+					)
+				}
 			>
-				<p className="text-sm uppercase">Reset Progress</p>
-			</div>
+				Reset Progress
+			</button>
 		</div>
 	);
 }
