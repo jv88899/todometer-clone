@@ -172,6 +172,11 @@ function App() {
 						</svg>
 						<h2 className="text-xl font-semibold">Completed</h2>
 					</div>
+					<div className="mx-4 mt-6">
+						{completedTodos.map((todo) => (
+							<Todo key={todo.id} todo={todo} />
+						))}
+					</div>
 				</div>
 			)}
 			<button
