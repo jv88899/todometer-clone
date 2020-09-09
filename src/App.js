@@ -57,7 +57,13 @@ function App() {
 
 	const removeTodo = (id) => {
 		setTodos(todos.filter((todo) => todo.id !== id));
+	};
+
+	const removePausedTodo = (id) => {
 		setPausedTodos(pausedTodos.filter((todo) => todo.id !== id));
+	};
+
+	const removeCompletedTodo = (id) => {
 		setCompletedTodos(completedTodos.filter((todo) => todo.id !== id));
 	};
 
@@ -157,7 +163,7 @@ function App() {
 							<Todo
 								key={todo.id}
 								todo={todo}
-								removeTodo={removeTodo}
+								removeTodo={removePausedTodo}
 							/>
 						))}
 					</div>
@@ -184,7 +190,7 @@ function App() {
 							<CompletedTodo
 								key={todo.id}
 								todo={todo}
-								removeTodo={removeTodo}
+								removeCompletedTodo={removeCompletedTodo}
 							/>
 						))}
 					</div>

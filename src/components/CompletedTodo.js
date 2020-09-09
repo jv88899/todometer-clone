@@ -1,13 +1,12 @@
 import React from "react";
 
-const CompletedTodo = ({ todo, removeTodo }) => {
-	console.log(removeTodo);
+const CompletedTodo = ({ todo, removeCompletedTodo }) => {
 	return (
 		<div className="flex justify-between items-center h-16 bg-purple-700 mb-4 px-2">
 			<span className="w-3/4 text-xs text-gray-100 truncate">
 				{todo.text}
 			</span>
-			<span onClick={() => removeTodo(todo.id)}>
+			<span onClick={() => removeCompletedTodo(todo.id)}>
 				<svg
 					viewBox="0 0 20 20"
 					fill="currentColor"
