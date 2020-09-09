@@ -68,9 +68,19 @@ function App() {
 	};
 
 	const pauseTodo = (todo) => {
-		let newPausedTodos = pausedTodos.concat(todo);
-		setPausedTodos(newPausedTodos);
-		removeTodo(todo.id);
+		let isCurrentlyPaused = pausedTodos.filter(
+			(pausedTodo) => todo.id === pausedTodo.id
+		);
+
+		if (isCurrentlyPaused.length > 0) {
+			let newTodos = todos.concat(todo);
+			setTodos(newTodos);
+			removePausedTodo(todo.id);
+		} else if (isCurrentlyPaused.length === 0) {
+			let newPausedTodos = pausedTodos.concat(todo);
+			setPausedTodos(newPausedTodos);
+			removeTodo(todo.id);
+		}
 	};
 
 	const completeTodo = (todo) => {
@@ -164,6 +174,7 @@ function App() {
 								key={todo.id}
 								todo={todo}
 								removeTodo={removePausedTodo}
+								pauseTodo={pauseTodo}
 							/>
 						))}
 					</div>
