@@ -7,7 +7,7 @@ const PausedTodo = ({
 	completeTodo,
 	pauseTodo,
 }) => (
-	<div className="flex justify-between items-center h-16 bg-purple-700 mb-4">
+	<div className="flex justify-evenly items-center h-16 bg-purple-700 mb-4">
 		<span>
 			<svg
 				viewBox="0 0 20 20"

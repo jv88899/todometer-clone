@@ -3,6 +3,7 @@ import uid from "uid";
 import CompletedTodo from "./components/CompletedTodo";
 import DateDisplay from "./components/DateDisplay";
 import Meter from "./components/Meter";
+import PausedTodo from "./components/PausedTodo";
 import Todo from "./components/Todo";
 
 function App() {
@@ -170,7 +171,7 @@ function App() {
 					</div>
 					<div className="mx-4 mt-6">
 						{pausedTodos.map((todo) => (
-							<Todo
+							<PausedTodo
 								key={todo.id}
 								todo={todo}
 								removeTodo={removePausedTodo}
