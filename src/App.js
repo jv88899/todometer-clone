@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import uid from "uid";
+import CompletedTodo from "./components/CompletedTodo";
 import DateDisplay from "./components/DateDisplay";
 import Meter from "./components/Meter";
 import Todo from "./components/Todo";
@@ -56,6 +57,8 @@ function App() {
 
 	const removeTodo = (id) => {
 		setTodos(todos.filter((todo) => todo.id !== id));
+		setPausedTodos(pausedTodos.filter((todo) => todo.id !== id));
+		setCompletedTodos(completedTodos.filter((todo) => todo.id !== id));
 	};
 
 	const pauseTodo = (todo) => {
@@ -151,7 +154,11 @@ function App() {
 					</div>
 					<div className="mx-4 mt-6">
 						{pausedTodos.map((todo) => (
-							<Todo key={todo.id} todo={todo} />
+							<Todo
+								key={todo.id}
+								todo={todo}
+								removeTodo={removeTodo}
+							/>
 						))}
 					</div>
 				</div>
@@ -174,7 +181,11 @@ function App() {
 					</div>
 					<div className="mx-4 mt-6">
 						{completedTodos.map((todo) => (
-							<Todo key={todo.id} todo={todo} />
+							<CompletedTodo
+								key={todo.id}
+								todo={todo}
+								removeTodo={removeTodo}
+							/>
 						))}
 					</div>
 				</div>
