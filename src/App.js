@@ -85,9 +85,21 @@ function App() {
 	};
 
 	const completeTodo = (todo) => {
-		let newCompletedTodos = completedTodos.concat(todo);
-		setCompletedTodos(newCompletedTodos);
-		removeTodo(todo.id);
+		let isCurrentlyCompleted = completedTodos.filter(
+			(completedTodo) => todo.id === completedTodo.id
+		);
+
+		if (isCurrentlyCompleted.length > 0) {
+			setCompletedTodos(
+				completedTodos.filter(
+					(completedTodo) => completedTodo.id !== todo.id
+				)
+			);
+		} else if (isCurrentlyCompleted.length === 0) {
+			let newCompletedTodos = completedTodos.concat(todo);
+			setCompletedTodos(newCompletedTodos);
+			removeTodo(todo.id);
+		}
 	};
 
 	const handleSubmit = (e) => {
