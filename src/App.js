@@ -149,6 +149,11 @@ function App() {
 						</svg>
 						<h2 className="text-xl font-semibold">Do Later</h2>
 					</div>
+					<div className="mx-4 mt-6">
+						{pausedTodos.map((todo) => (
+							<Todo key={todo.id} todo={todo} />
+						))}
+					</div>
 				</div>
 			)}
 			{completedTodos.length > 0 && (
