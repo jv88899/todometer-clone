@@ -176,6 +176,7 @@ function App() {
 								todo={todo}
 								removeTodo={removePausedTodo}
 								pauseTodo={pauseTodo}
+								completeTodo={completeTodo}
 							/>
 						))}
 					</div>
