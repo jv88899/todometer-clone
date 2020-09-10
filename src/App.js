@@ -85,10 +85,6 @@ function App() {
 	};
 
 	const completeTodo = (todo) => {
-		let isCurrentlyCompleted = completedTodos.filter(
-			(completedTodo) => todo.id === completedTodo.id
-		);
-
 		let isCurrentlyPaused = pausedTodos.filter(
 			(pausedTodo) => todo.id === pausedTodo.id
 		);
@@ -98,20 +94,6 @@ function App() {
 				pausedTodos.filter((pausedTodo) => pausedTodo.id !== todo.id)
 			);
 		}
-
-		/* I cannot remember why I wrote the code below*/
-		// if (isCurrentlyCompleted.length > 0) {
-		// 	setCompletedTodos(
-		// 		completedTodos.filter(
-		// 			(completedTodo) => completedTodo.id !== todo.id
-		// 		)
-		// 	);
-		// } else if (isCurrentlyCompleted.length === 0) {
-		// 	let newCompletedTodos = completedTodos.concat(todo);
-		// 	setCompletedTodos(newCompletedTodos);
-		// 	removeTodo(todo.id);
-		// }
-		/* End of I cannot remember why I wrote this code */
 
 		let newCompletedTodos = completedTodos.concat(todo);
 		setCompletedTodos(newCompletedTodos);
