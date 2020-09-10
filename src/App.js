@@ -89,17 +89,33 @@ function App() {
 			(completedTodo) => todo.id === completedTodo.id
 		);
 
-		if (isCurrentlyCompleted.length > 0) {
-			setCompletedTodos(
-				completedTodos.filter(
-					(completedTodo) => completedTodo.id !== todo.id
-				)
+		let isCurrentlyPaused = pausedTodos.filter(
+			(pausedTodo) => todo.id === pausedTodo.id
+		);
+
+		if (isCurrentlyPaused.length > 0) {
+			setPausedTodos(
+				pausedTodos.filter((pausedTodo) => pausedTodo.id !== todo.id)
 			);
-		} else if (isCurrentlyCompleted.length === 0) {
-			let newCompletedTodos = completedTodos.concat(todo);
-			setCompletedTodos(newCompletedTodos);
-			removeTodo(todo.id);
 		}
+
+		/* I cannot remember why I wrote the code below*/
+		// if (isCurrentlyCompleted.length > 0) {
+		// 	setCompletedTodos(
+		// 		completedTodos.filter(
+		// 			(completedTodo) => completedTodo.id !== todo.id
+		// 		)
+		// 	);
+		// } else if (isCurrentlyCompleted.length === 0) {
+		// 	let newCompletedTodos = completedTodos.concat(todo);
+		// 	setCompletedTodos(newCompletedTodos);
+		// 	removeTodo(todo.id);
+		// }
+		/* End of I cannot remember why I wrote this code */
+
+		let newCompletedTodos = completedTodos.concat(todo);
+		setCompletedTodos(newCompletedTodos);
+		removeTodo(todo.id);
 	};
 
 	const handleSubmit = (e) => {
