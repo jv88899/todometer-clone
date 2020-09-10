@@ -1,6 +1,13 @@
 import React from "react";
 
-const Todo = ({ todo, isEditable, removeTodo, completeTodo, pauseTodo }) => {
+const Todo = ({
+	todo,
+	isEditable,
+	editTodo,
+	removeTodo,
+	completeTodo,
+	pauseTodo,
+}) => {
 	return (
 		<div
 			className={`flex ${
@@ -8,7 +15,7 @@ const Todo = ({ todo, isEditable, removeTodo, completeTodo, pauseTodo }) => {
 			} items-center h-16 bg-purple-700 mb-4`}
 		>
 			{!isEditable && (
-				<span>
+				<span onClick={editTodo}>
 					<svg
 						viewBox="0 0 20 20"
 						fill="currentColor"

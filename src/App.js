@@ -54,7 +54,11 @@ function App() {
 		},
 	]);
 	const [currentValue, setCurrentValue] = useState("");
-	const [isEditable, setIsEditable] = useState(true);
+	const [isEditable, setIsEditable] = useState(false);
+
+	const editTodo = () => {
+		setIsEditable(true);
+	};
 
 	const removeTodo = (id) => {
 		setTodos(todos.filter((todo) => todo.id !== id));
@@ -157,6 +161,7 @@ function App() {
 						key={todo.id}
 						todo={todo}
 						isEditable={isEditable}
+						editTodo={editTodo}
 						removeTodo={removeTodo}
 						pauseTodo={pauseTodo}
 						completeTodo={completeTodo}
