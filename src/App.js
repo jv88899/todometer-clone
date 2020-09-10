@@ -54,7 +54,7 @@ function App() {
 		},
 	]);
 	const [currentValue, setCurrentValue] = useState("");
-	const [isEditable, setIsEditable] = useState(false);
+	const [isEditable, setIsEditable] = useState(true);
 
 	const removeTodo = (id) => {
 		setTodos(todos.filter((todo) => todo.id !== id));
