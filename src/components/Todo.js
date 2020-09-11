@@ -2,14 +2,16 @@ import React from "react";
 import { ReactComponent as CloseIcon } from "../icons/close.svg";
 import { ReactComponent as EllipsisIcon } from "../icons/ellipsis.svg";
 
-const Todo = ({ todo, isEditable, removeTodo }) => {
+const Todo = ({ todo, isEditable, removeTodo, completeTodo, pauseTodo }) => {
 	return (
 		<div className="flex justify-evenly items-center h-16 bg-purple-700 mb-4">
 			<span>
 				<EllipsisIcon />
 			</span>
 			{!isEditable && (
-				<span className="w-1/2 text-xs text-gray-100">{todo.text}</span>
+				<span className="w-1/2 text-xs text-gray-100 truncate">
+					{todo.text}
+				</span>
 			)}
 			{isEditable && (
 				<form className="w-1/2 text-xs">
@@ -19,7 +21,7 @@ const Todo = ({ todo, isEditable, removeTodo }) => {
 			<span onClick={() => removeTodo(todo.id)}>
 				<CloseIcon />
 			</span>
-			<span>
+			<span onClick={() => pauseTodo(todo)}>
 				<svg
 					viewBox="0 0 20 20"
 					fill="currentColor"
@@ -32,7 +34,7 @@ const Todo = ({ todo, isEditable, removeTodo }) => {
 					/>
 				</svg>
 			</span>
-			<span>
+			<span onClick={() => completeTodo(todo)}>
 				<svg
 					viewBox="0 0 20 20"
 					fill="currentColor"
