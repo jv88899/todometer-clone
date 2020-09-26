@@ -36,10 +36,14 @@ function App() {
 	const {
 		todos,
 		pausedTodos,
-		setPausedTodos,
 		activeTodos,
+		resetActive,
+		pauseTodo,
+		removeTodo,
+		createTodo,
+		completeTodo,
 		completedTodos,
-		setCompletedTodos,
+		resetTodos,
 		setTodos,
 	} = useTodos();
 
@@ -50,64 +54,13 @@ function App() {
 		setIsEditable(true);
 	};
 
-	// If we consolidate all our Todos into a single array of state, we won't have three different remove todo function
-	const removeTodo = (id) => {
-		setTodos(todos.filter((todo) => todo.id !== id));
-	};
-
-	const removePausedTodo = (id) => {
-		setPausedTodos(pausedTodos.filter((todo) => todo.id !== id));
-	};
-
-	const removeCompletedTodo = (id) => {
-		setCompletedTodos(completedTodos.filter((todo) => todo.id !== id));
-	};
-
-	const pauseTodo = (todo) => {
-		let isCurrentlyPaused = pausedTodos.filter(
-			(pausedTodo) => todo.id === pausedTodo.id
-		);
-
-		if (isCurrentlyPaused.length > 0) {
-			let newTodos = todos.concat(todo);
-			setTodos(newTodos);
-			removePausedTodo(todo.id);
-		} else if (isCurrentlyPaused.length === 0) {
-			let newPausedTodos = pausedTodos.concat(todo);
-			setPausedTodos(newPausedTodos);
-			removeTodo(todo.id);
-		}
-	};
-
-	const completeTodo = (todo) => {
-		let isCurrentlyPaused = pausedTodos.filter(
-			(pausedTodo) => todo.id === pausedTodo.id
-		);
-
-		if (isCurrentlyPaused.length > 0) {
-			setPausedTodos(
-				pausedTodos.filter((pausedTodo) => pausedTodo.id !== todo.id)
-			);
-		}
-
-		let newCompletedTodos = completedTodos.concat(todo);
-		setCompletedTodos(newCompletedTodos);
-		removeTodo(todo.id);
-	};
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		let newTodo = { text: currentValue, id: uid() };
+		if (!currentValue) return;
 
-		setTodos(todos.concat(newTodo));
+		createTodo(currentValue);
 		setCurrentValue("");
-	};
-
-	const resetProgress = () => {
-		setTodos([]);
-		setPausedTodos([]);
-		setCompletedTodos([]);
 	};
 
 	return (
@@ -182,7 +135,7 @@ function App() {
 							<PausedTodo
 								key={todo.id}
 								todo={todo}
-								removeTodo={removePausedTodo}
+								removeTodo={removeTodo}
 								pauseTodo={pauseTodo}
 								completeTodo={completeTodo}
 							/>
@@ -212,23 +165,16 @@ function App() {
 							<CompletedTodo
 								key={todo.id}
 								todo={todo}
-								removeCompletedTodo={removeCompletedTodo}
+								removeCompletedTodo={removeTodo}
 							/>
 						))}
 					</div>
 				</div>
 			)}
 			<button
-				onClick={resetProgress}
+				onClick={resetTodos}
 				className="w-full flex align-middle justify-center pb-3 text-gray-100 text-sm uppercase"
-				disabled={
-					// If we consolidate our todos into a single array, it would simplify this logic
-					!(
-						todos.length > 0 ||
-						pausedTodos.length > 0 ||
-						completedTodos.length > 0
-					)
-				}
+				disabled={resetActive}
 			>
 				Reset Progress
 			</button>
