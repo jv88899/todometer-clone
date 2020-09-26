@@ -5,54 +5,44 @@ import DateDisplay from "./components/DateDisplay";
 import Meter from "./components/Meter";
 import PausedTodo from "./components/PausedTodo";
 import Todo from "./components/Todo";
+import { useTodos } from "./hooks/useTodos";
 
 function App() {
-	const [todos, setTodos] = useState([
+	/* 	Instead of breaking out todos into different useStates, we could have it all as one.
+			Then we could modify the todo value such as:
 		{
-			id: uid(),
-			text: "This is my first todo",
-		},
+			id: 123,
+			text: "This is a todo",
+			state: 'todo' | 'paused' | 'completed'
+		}
+
+		optionally we could declare a constant kinda like this:
+		const TODO_STATES = {
+			TODO: 1,
+			PAUSED: 2,
+			COMPLETED: 3
+		}
+
+		which allows us to do something like this:
 		{
-			id: uid(),
-			text: "This is my second todo",
-		},
-		{
-			id: uid(),
-			text: "This is my third todo",
-		},
-		{
-			id: uid(),
-			text: "This is my fourth todo",
-		},
-		{
-			id: uid(),
-			text: "This is my fifth todo",
-		},
-	]);
-	const [pausedTodos, setPausedTodos] = useState([
-		{
-			id: uid(),
-			text: "This todo is paused",
-		},
-		{
-			id: uid(),
-			text: "This todo is also paused",
-		},
-	]);
-	const [completedTodos, setCompletedTodos] = useState([
-		{
-			id: uid(),
-			text: "This todo is complete",
-		},
-		{
-			id: uid(),
-			text: "This todo is also complete",
-		},
-		{
-			id: uid(),
-			text: "Hey, look at that, another completed todo",
-		},
-	]);
+			id: 123,
+			text: "This is a todo",
+			state: TODO_STATES.PAUSED
+		}
+
+		then if we need an array of only paused todos we can do this:
+		const pausedTodos = todos.filter(todo => todo.state === TODO_STATES.PAUSED);
+	*/
+	const {
+		todos,
+		pausedTodos,
+		setPausedTodos,
+		activeTodos,
+		completedTodos,
+		setCompletedTodos,
+		setTodos,
+	} = useTodos();
+
 	const [currentValue, setCurrentValue] = useState("");
 	const [isEditable, setIsEditable] = useState(false);
 
@@ -60,6 +50,7 @@ function App() {
 		setIsEditable(true);
 	};
 
+	// If we consolidate all our Todos into a single array of state, we won't have three different remove todo function
 	const removeTodo = (id) => {
 		setTodos(todos.filter((todo) => todo.id !== id));
 	};
@@ -142,6 +133,7 @@ function App() {
 					type="submit"
 					className="w-2/12 flex justify-center text-gray-100"
 				>
+					{/* As mentioned we should try to remove all SVGs into an icons folder */}
 					<svg
 						viewBox="0 0 20 20"
 						fill="currentColor"
@@ -156,7 +148,7 @@ function App() {
 				</button>
 			</form>
 			<div className="mx-4 mt-6">
-				{todos.map((todo) => (
+				{activeTodos.map((todo) => (
 					<Todo
 						key={todo.id}
 						todo={todo}
@@ -171,6 +163,7 @@ function App() {
 			{pausedTodos.length > 0 && (
 				<div className="mb-4">
 					<div className="flex mx-2 mt-6 h-6 text-gray-100 items-center">
+						{/* As mentioned we should try to remove all SVGs into an icons folder */}
 						<svg
 							viewBox="0 0 20 20"
 							fill="currentColor"
@@ -200,6 +193,7 @@ function App() {
 			{completedTodos.length > 0 && (
 				<div className="mb-4">
 					<div className="flex mx-2 mt-6 h-6 text-gray-100">
+						{/* As mentioned we should try to remove all SVGs into an icons folder */}
 						<svg
 							viewBox="0 0 20 20"
 							fill="currentColor"
@@ -228,6 +222,7 @@ function App() {
 				onClick={resetProgress}
 				className="w-full flex align-middle justify-center pb-3 text-gray-100 text-sm uppercase"
 				disabled={
+					// If we consolidate our todos into a single array, it would simplify this logic
 					!(
 						todos.length > 0 ||
 						pausedTodos.length > 0 ||

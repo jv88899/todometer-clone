@@ -18,6 +18,8 @@ const Todo = ({
 		>
 			{!isEditable && (
 				<span onClick={editTodo}>
+					{/* As mentioned we should try to remove all SVGs into an icons folder */}
+
 					<svg
 						viewBox="0 0 20 20"
 						fill="currentColor"
@@ -48,6 +50,7 @@ const Todo = ({
 				)}
 				{!isEditable && (
 					<span onClick={() => removeTodo(todo.id)}>
+						{/* As mentioned we should try to remove all SVGs into an icons folder */}
 						<svg
 							viewBox="0 0 20 20"
 							fill="currentColor"
@@ -63,6 +66,7 @@ const Todo = ({
 				)}
 				{!isEditable && (
 					<span onClick={() => pauseTodo(todo)}>
+						{/* As mentioned we should try to remove all SVGs into an icons folder */}
 						<svg
 							viewBox="0 0 20 20"
 							fill="currentColor"
@@ -78,6 +82,7 @@ const Todo = ({
 				)}
 				{!isEditable && (
 					<span onClick={() => completeTodo(todo)}>
+						{/* As mentioned we should try to remove all SVGs into an icons folder */}
 						<svg
 							viewBox="0 0 20 20"
 							fill="currentColor"
