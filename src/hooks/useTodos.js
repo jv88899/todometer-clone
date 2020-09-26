@@ -72,24 +72,23 @@ export const useTodos = () => {
 		setTodos(todos.filter((todo) => todo.id !== id));
 	};
 
-	const pauseTodo = (todo) => {
+	const changeStateOfTodo = (todo, newState) => {
 		setTodos((prev) =>
 			prev.map((t) => {
 				if (t !== todo) return t;
-				const isPaused = t.state === STATES.PAUSED;
-				const state = isPaused ? STATES.ACTIVE : STATES.PAUSED;
-				return { ...t, state };
+				return { ...t, state: newState };
 			})
 		);
 	};
 
+	const pauseTodo = (todo) => {
+		const isPaused = todo.state === STATES.PAUSED;
+		const newState = isPaused ? STATES.ACTIVE : STATES.PAUSED;
+		changeStateOfTodo(todo, newState);
+	};
+
 	const completeTodo = (todo) => {
-		setTodos((prev) =>
-			prev.map((t) => {
-				if (t !== todo) return t;
-				return { ...t, state: STATES.COMPLETED };
-			})
-		);
+		changeStateOfTodo(todo, STATES.COMPLETED);
 	};
 
 	const resetTodos = () => setTodos([]);
@@ -103,7 +102,6 @@ export const useTodos = () => {
 
 	return {
 		// TODO Arrays
-		todos,
 		activeTodos, // Todos where state is ACTIVE
 		pausedTodos, // Todos where state is PAUSED
 		completedTodos, // Todos where state is COMPLETED
@@ -114,7 +112,6 @@ export const useTodos = () => {
 		pauseTodo,
 		completeTodo,
 		removeTodo,
-		setTodos,
 		resetTodos,
 	};
 };

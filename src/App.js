@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import uid from "uid";
 import CompletedTodo from "./components/CompletedTodo";
 import DateDisplay from "./components/DateDisplay";
 import Meter from "./components/Meter";
@@ -8,33 +7,7 @@ import Todo from "./components/Todo";
 import { useTodos } from "./hooks/useTodos";
 
 function App() {
-	/* 	Instead of breaking out todos into different useStates, we could have it all as one.
-			Then we could modify the todo value such as:
-		{
-			id: 123,
-			text: "This is a todo",
-			state: 'todo' | 'paused' | 'completed'
-		}
-
-		optionally we could declare a constant kinda like this:
-		const TODO_STATES = {
-			TODO: 1,
-			PAUSED: 2,
-			COMPLETED: 3
-		}
-
-		which allows us to do something like this:
-		{
-			id: 123,
-			text: "This is a todo",
-			state: TODO_STATES.PAUSED
-		}
-
-		then if we need an array of only paused todos we can do this:
-		const pausedTodos = todos.filter(todo => todo.state === TODO_STATES.PAUSED);
-	*/
 	const {
-		todos,
 		pausedTodos,
 		activeTodos,
 		resetActive,
@@ -44,7 +17,6 @@ function App() {
 		completeTodo,
 		completedTodos,
 		resetTodos,
-		setTodos,
 	} = useTodos();
 
 	const [currentValue, setCurrentValue] = useState("");
@@ -67,7 +39,7 @@ function App() {
 		<div className="min-h-screen max-h-full w-full bg-purple-900">
 			<DateDisplay />
 			<Meter
-				todos={todos}
+				todos={activeTodos}
 				pausedTodos={pausedTodos}
 				completedTodos={completedTodos}
 			/>
