@@ -1,127 +1,45 @@
 import React, { useState } from "react";
-import uid from "uid";
 import CompletedTodo from "./components/CompletedTodo";
 import DateDisplay from "./components/DateDisplay";
 import Meter from "./components/Meter";
 import PausedTodo from "./components/PausedTodo";
 import Todo from "./components/Todo";
+import { useTodos } from "./hooks/useTodos";
 
 function App() {
-	const [todos, setTodos] = useState([
-		{
-			id: uid(),
-			text: "This is my first todo",
-		},
-		{
-			id: uid(),
-			text: "This is my second todo",
-		},
-		{
-			id: uid(),
-			text: "This is my third todo",
-		},
-		{
-			id: uid(),
-			text: "This is my fourth todo",
-		},
-		{
-			id: uid(),
-			text: "This is my fifth todo",
-		},
-	]);
-	const [pausedTodos, setPausedTodos] = useState([
-		{
-			id: uid(),
-			text: "This todo is paused",
-		},
-		{
-			id: uid(),
-			text: "This todo is also paused",
-		},
-	]);
-	const [completedTodos, setCompletedTodos] = useState([
-		{
-			id: uid(),
-			text: "This todo is complete",
-		},
-		{
-			id: uid(),
-			text: "This todo is also complete",
-		},
-		{
-			id: uid(),
-			text: "Hey, look at that, another completed todo",
-		},
-	]);
+	const {
+		pausedTodos,
+		activeTodos,
+		resetActive,
+		pauseTodo,
+		removeTodo,
+		createTodo,
+		completeTodo,
+		completedTodos,
+		resetTodos,
+	} = useTodos();
+
 	const [currentValue, setCurrentValue] = useState("");
 	const [isEditable, setIsEditable] = useState(false);
 
-	const removeTodo = (id) => {
-		setTodos(todos.filter((todo) => todo.id !== id));
-	};
-
-	const removePausedTodo = (id) => {
-		setPausedTodos(pausedTodos.filter((todo) => todo.id !== id));
-	};
-
-	const removeCompletedTodo = (id) => {
-		setCompletedTodos(completedTodos.filter((todo) => todo.id !== id));
-	};
-
-	const pauseTodo = (todo) => {
-		let isCurrentlyPaused = pausedTodos.filter(
-			(pausedTodo) => todo.id === pausedTodo.id
-		);
-
-		if (isCurrentlyPaused.length > 0) {
-			let newTodos = todos.concat(todo);
-			setTodos(newTodos);
-			removePausedTodo(todo.id);
-		} else if (isCurrentlyPaused.length === 0) {
-			let newPausedTodos = pausedTodos.concat(todo);
-			setPausedTodos(newPausedTodos);
-			removeTodo(todo.id);
-		}
-	};
-
-	const completeTodo = (todo) => {
-		let isCurrentlyCompleted = completedTodos.filter(
-			(completedTodo) => todo.id === completedTodo.id
-		);
-
-		if (isCurrentlyCompleted.length > 0) {
-			setCompletedTodos(
-				completedTodos.filter(
-					(completedTodo) => completedTodo.id !== todo.id
-				)
-			);
-		} else if (isCurrentlyCompleted.length === 0) {
-			let newCompletedTodos = completedTodos.concat(todo);
-			setCompletedTodos(newCompletedTodos);
-			removeTodo(todo.id);
-		}
+	const editTodo = () => {
+		setIsEditable(true);
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
 
-		let newTodo = { text: currentValue, id: uid() };
+		if (!currentValue) return;
 
-		setTodos(todos.concat(newTodo));
+		createTodo(currentValue);
 		setCurrentValue("");
-	};
-
-	const resetProgress = () => {
-		setTodos([]);
-		setPausedTodos([]);
-		setCompletedTodos([]);
 	};
 
 	return (
 		<div className="min-h-screen max-h-full w-full bg-purple-900">
 			<DateDisplay />
 			<Meter
-				todos={todos}
+				todos={activeTodos}
 				pausedTodos={pausedTodos}
 				completedTodos={completedTodos}
 			/>
@@ -140,6 +58,7 @@ function App() {
 					type="submit"
 					className="w-2/12 flex justify-center text-gray-100"
 				>
+					{/* As mentioned we should try to remove all SVGs into an icons folder */}
 					<svg
 						viewBox="0 0 20 20"
 						fill="currentColor"
@@ -154,11 +73,12 @@ function App() {
 				</button>
 			</form>
 			<div className="mx-4 mt-6">
-				{todos.map((todo) => (
+				{activeTodos.map((todo) => (
 					<Todo
 						key={todo.id}
 						todo={todo}
 						isEditable={isEditable}
+						editTodo={editTodo}
 						removeTodo={removeTodo}
 						pauseTodo={pauseTodo}
 						completeTodo={completeTodo}
@@ -168,6 +88,7 @@ function App() {
 			{pausedTodos.length > 0 && (
 				<div className="mb-4">
 					<div className="flex mx-2 mt-6 h-6 text-gray-100 items-center">
+						{/* As mentioned we should try to remove all SVGs into an icons folder */}
 						<svg
 							viewBox="0 0 20 20"
 							fill="currentColor"
@@ -186,7 +107,7 @@ function App() {
 							<PausedTodo
 								key={todo.id}
 								todo={todo}
-								removeTodo={removePausedTodo}
+								removeTodo={removeTodo}
 								pauseTodo={pauseTodo}
 								completeTodo={completeTodo}
 							/>
@@ -197,6 +118,7 @@ function App() {
 			{completedTodos.length > 0 && (
 				<div className="mb-4">
 					<div className="flex mx-2 mt-6 h-6 text-gray-100">
+						{/* As mentioned we should try to remove all SVGs into an icons folder */}
 						<svg
 							viewBox="0 0 20 20"
 							fill="currentColor"
@@ -215,22 +137,16 @@ function App() {
 							<CompletedTodo
 								key={todo.id}
 								todo={todo}
-								removeCompletedTodo={removeCompletedTodo}
+								removeCompletedTodo={removeTodo}
 							/>
 						))}
 					</div>
 				</div>
 			)}
 			<button
-				onClick={resetProgress}
+				onClick={resetTodos}
 				className="w-full flex align-middle justify-center pb-3 text-gray-100 text-sm uppercase"
-				disabled={
-					!(
-						todos.length > 0 ||
-						pausedTodos.length > 0 ||
-						completedTodos.length > 0
-					)
-				}
+				disabled={resetActive}
 			>
 				Reset Progress
 			</button>
