@@ -106,7 +106,7 @@ export const useTodos = () => {
 		pausedTodos, // Todos where state is PAUSED
 		completedTodos, // Todos where state is COMPLETED
 
-		resetActive: todos.length > 0,
+		resetActive: todos.length === 0,
 		// CRUD Operations
 		createTodo,
 		pauseTodo,
