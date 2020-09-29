@@ -6,6 +6,8 @@ import Meter from "./components/Meter";
 import PausedTodo from "./components/PausedTodo";
 import Todo from "./components/Todo";
 import { useTodos } from "./hooks/useTodos";
+import { ReactComponent as ChevronRightIcon } from "./icons/chevron-right.svg";
+import { ReactComponent as PlusIcon } from "./icons/plus.svg";
 
 function App() {
 	const {
@@ -86,18 +88,7 @@ function App() {
 					type="submit"
 					className="w-2/12 flex justify-center text-gray-100"
 				>
-					{/* As mentioned we should try to remove all SVGs into an icons folder */}
-					<svg
-						viewBox="0 0 20 20"
-						fill="currentColor"
-						className="plus w-10 h-10"
-					>
-						<path
-							fillRule="evenodd"
-							d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-							clipRule="evenodd"
-						/>
-					</svg>
+					<PlusIcon />
 				</button>
 			</form>
 			<DragDropContext onDragEnd={onDragEnd}>
@@ -128,18 +119,7 @@ function App() {
 			{pausedTodos.length > 0 && (
 				<div className="mb-4">
 					<div className="flex mx-2 mt-6 h-6 text-gray-100 items-center">
-						{/* As mentioned we should try to remove all SVGs into an icons folder */}
-						<svg
-							viewBox="0 0 20 20"
-							fill="currentColor"
-							className="chevron-right w-8 h-8"
-						>
-							<path
-								fillRule="evenodd"
-								d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-								clipRule="evenodd"
-							/>
-						</svg>
+						<ChevronRightIcon />
 						<h2 className="text-xl font-semibold">Do Later</h2>
 					</div>
 					<div className="mx-4 mt-6">
@@ -158,18 +138,7 @@ function App() {
 			{completedTodos.length > 0 && (
 				<div className="mb-4">
 					<div className="flex mx-2 mt-6 h-6 text-gray-100">
-						{/* As mentioned we should try to remove all SVGs into an icons folder */}
-						<svg
-							viewBox="0 0 20 20"
-							fill="currentColor"
-							className="chevron-right w-8 h-8"
-						>
-							<path
-								fillRule="evenodd"
-								d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-								clipRule="evenodd"
-							/>
-						</svg>
+						<ChevronRightIcon />
 						<h2 className="text-xl font-semibold">Completed</h2>
 					</div>
 					<div className="mx-4 mt-6">
