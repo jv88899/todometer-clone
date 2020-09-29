@@ -7,7 +7,6 @@ const getClassName = (state) => {
 };
 
 const Meter = ({ todos }) => {
-	console.log(todos);
 	return (
 		<div className="w-full h-4">
 			<div className="flex bg-purple-700 h-full mt-8 mx-4 rounded-sm">
