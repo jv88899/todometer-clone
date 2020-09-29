@@ -39,19 +39,27 @@ function App() {
 	};
 
 	const onDragEnd = (result) => {
+		// if item is dropped outside of drop zone, do nothing
 		if (!result.destination) return;
 
+		// get the starting index for the item being dragged
 		const currentItemStartLocation = result.source.index;
 
+		// get the new index where the item was dropped
 		const currentItemNewLocation = result.destination.index;
 
+		// remove the active item from activeTodos and store in a variable
 		const newItem = activeTodos.splice(currentItemStartLocation, 1);
+
+		// add the active item back to activeTodos in the correct spot
 		activeTodos.splice(currentItemNewLocation, 0, ...newItem);
 
+		// create a new array that includes all of the todos
 		const newTodoList = activeTodos
 			.concat(pausedTodos)
 			.concat(completedTodos);
 
+		// update state with the new array
 		setTodos(newTodoList);
 	};
 
