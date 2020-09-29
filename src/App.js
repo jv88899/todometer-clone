@@ -41,33 +41,18 @@ function App() {
 	const onDragEnd = (result) => {
 		if (!result.destination) return;
 
-		// console.log("result", result);
-		const currentItem = result.draggableId; // item that is being dragged
 		const currentItemStartLocation = result.source.index;
 		const currentItemNewLocation = result.destination.index;
-		console.log("currentItem is", currentItem);
-		console.log(
-			"old",
-			currentItemStartLocation,
-			"new",
-			currentItemNewLocation
-		);
 
 		const testArray = Array.from(activeTodos);
-		console.log("first", testArray);
 		const newArray = testArray.splice(currentItemStartLocation, 1);
 		testArray.splice(currentItemNewLocation, 0, ...newArray);
-		console.log("now", testArray);
 
 		const newTodoList = testArray
 			.concat(pausedTodos)
 			.concat(completedTodos);
 
-		console.log("new state", newTodoList);
-
 		setTodos(newTodoList);
-
-		// console.log(currentItemStartLocation, currentItemNewLocation);
 	};
 
 	return (
