@@ -49,10 +49,10 @@ function App() {
 		const currentItemNewLocation = result.destination.index;
 
 		// remove the active item from activeTodos and store in a variable
-		const newItem = activeTodos.splice(currentItemStartLocation, 1);
+		const activeItem = activeTodos.splice(currentItemStartLocation, 1);
 
 		// add the active item back to activeTodos in the correct spot
-		activeTodos.splice(currentItemNewLocation, 0, ...newItem);
+		activeTodos.splice(currentItemNewLocation, 0, ...activeItem);
 
 		// create a new array that includes all of the todos
 		const newTodoList = activeTodos
