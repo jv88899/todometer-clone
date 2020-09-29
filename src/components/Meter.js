@@ -1,20 +1,19 @@
-// Started at 43 lines
 import React from "react";
 
-const getClassName = (status) => {
-	if (status === 1) return "h-4 bg-green-500 flex-grow";
-	if (status === 2) return "h-4 bg-yellow-500 flex-grow";
-	if (status === 3) return "h-4 flex-grow";
-	return null;
+const getClassName = (state) => {
+	if (state === 1) return "h-4 flex-grow";
+	if (state === 2) return "h-4 bg-yellow-500 flex-grow";
+	if (state === 3) return "h-4 bg-green-500 flex-grow";
 };
+
 const Meter = ({ todos }) => {
 	return (
 		<div className="w-full h-4">
 			<div className="flex bg-purple-700 h-full mt-8 mx-4 rounded-sm">
 				{todos
-					.sort((a, b) => a.status - b.status)
+					.sort((a, b) => b.state - a.state)
 					.map((todo) => {
-						const className = getClassName(todo.status);
+						const className = getClassName(todo.state);
 						if (!className) return null;
 
 						return <div key={todo.text} className={className} />;

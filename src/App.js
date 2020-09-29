@@ -11,6 +11,7 @@ function App() {
 		pausedTodos,
 		activeTodos,
 		resetActive,
+		todos,
 		pauseTodo,
 		removeTodo,
 		createTodo,
@@ -39,7 +40,7 @@ function App() {
 		<div className="min-h-screen max-h-full w-full bg-purple-900">
 			<DateDisplay />
 			<Meter
-				todos={activeTodos}
+				todos={todos}
 				pausedTodos={pausedTodos}
 				completedTodos={completedTodos}
 			/>

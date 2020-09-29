@@ -63,9 +63,11 @@ export const useTodos = () => {
 	]);
 
 	const pausedTodos = todos.filter((todo) => todo.state === STATES.PAUSED);
+
 	const completedTodos = todos.filter(
 		(todo) => todo.state === STATES.COMPLETED
 	);
+
 	const activeTodos = todos.filter((todo) => todo.state === STATES.ACTIVE);
 
 	const removeTodo = (id) => {
@@ -105,6 +107,7 @@ export const useTodos = () => {
 		activeTodos, // Todos where state is ACTIVE
 		pausedTodos, // Todos where state is PAUSED
 		completedTodos, // Todos where state is COMPLETED
+		todos, // All Todos
 
 		resetActive: todos.length === 0,
 		// CRUD Operations
