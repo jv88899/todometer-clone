@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import CompletedTodo from "./components/CompletedTodo";
 import DateDisplay from "./components/DateDisplay";
 import Meter from "./components/Meter";
@@ -34,6 +35,10 @@ function App() {
 
 		createTodo(currentValue);
 		setCurrentValue("");
+	};
+
+	const onDragEnd = (result) => {
+		console.log("working");
 	};
 
 	return (
@@ -73,19 +78,31 @@ function App() {
 					</svg>
 				</button>
 			</form>
-			<div className="mx-4 mt-6">
-				{activeTodos.map((todo) => (
-					<Todo
-						key={todo.id}
-						todo={todo}
-						isEditable={isEditable}
-						editTodo={editTodo}
-						removeTodo={removeTodo}
-						pauseTodo={pauseTodo}
-						completeTodo={completeTodo}
-					/>
-				))}
-			</div>
+			<DragDropContext onDragEnd={onDragEnd}>
+				<Droppable droppableId="droppable">
+					{(provided, snapshot) => (
+						<div
+							className="mx-4 mt-6"
+							{...provided.droppableProps}
+							ref={provided.innerRef}
+						>
+							{activeTodos.map((todo, index) => (
+								<Todo
+									key={todo.id}
+									todo={todo}
+									isEditable={isEditable}
+									editTodo={editTodo}
+									removeTodo={removeTodo}
+									pauseTodo={pauseTodo}
+									completeTodo={completeTodo}
+									index={index}
+								/>
+							))}
+							{provided.placeholder}
+						</div>
+					)}
+				</Droppable>
+			</DragDropContext>
 			{pausedTodos.length > 0 && (
 				<div className="mb-4">
 					<div className="flex mx-2 mt-6 h-6 text-gray-100 items-center">
