@@ -42,10 +42,10 @@ function App() {
 		// if item is dropped outside of drop zone, do nothing
 		if (!result.destination) return;
 
-		// get the starting index for the item being dragged
+		// get the starting array index for the item being dragged
 		const currentItemStartLocation = result.source.index;
 
-		// get the new index where the item was dropped
+		// get the new array index where the item was dropped
 		const currentItemNewLocation = result.destination.index;
 
 		// remove the active item from activeTodos and store in a variable
