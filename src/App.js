@@ -42,13 +42,13 @@ function App() {
 		if (!result.destination) return;
 
 		const currentItemStartLocation = result.source.index;
+
 		const currentItemNewLocation = result.destination.index;
 
-		const testArray = Array.from(activeTodos);
-		const newArray = testArray.splice(currentItemStartLocation, 1);
-		testArray.splice(currentItemNewLocation, 0, ...newArray);
+		const newItem = activeTodos.splice(currentItemStartLocation, 1);
+		activeTodos.splice(currentItemNewLocation, 0, ...newItem);
 
-		const newTodoList = testArray
+		const newTodoList = activeTodos
 			.concat(pausedTodos)
 			.concat(completedTodos);
 
