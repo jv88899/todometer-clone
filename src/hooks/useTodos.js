@@ -116,5 +116,6 @@ export const useTodos = () => {
 		completeTodo,
 		removeTodo,
 		resetTodos,
+		setTodos,
 	};
 };

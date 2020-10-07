@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import CompletedTodo from "./components/CompletedTodo";
 import DateDisplay from "./components/DateDisplay";
 import Meter from "./components/Meter";
 import PausedTodo from "./components/PausedTodo";
 import Todo from "./components/Todo";
 import { useTodos } from "./hooks/useTodos";
+import { ReactComponent as ChevronRightIcon } from "./icons/chevron-right.svg";
+import { ReactComponent as PlusIcon } from "./icons/plus.svg";
 
 function App() {
 	const {
@@ -18,6 +21,7 @@ function App() {
 		completeTodo,
 		completedTodos,
 		resetTodos,
+		setTodos,
 	} = useTodos();
 
 	const [currentValue, setCurrentValue] = useState("");
@@ -34,6 +38,31 @@ function App() {
 
 		createTodo(currentValue);
 		setCurrentValue("");
+	};
+
+	const onDragEnd = (result) => {
+		// if item is dropped outside of drop zone, do nothing
+		if (!result.destination) return;
+
+		// get the starting array index for the item being dragged
+		const currentItemStartLocation = result.source.index;
+
+		// get the new array index where the item was dropped
+		const currentItemNewLocation = result.destination.index;
+
+		// remove the active item from activeTodos and store in a variable
+		const activeItem = activeTodos.splice(currentItemStartLocation, 1);
+
+		// add the active item back to activeTodos in the correct spot
+		activeTodos.splice(currentItemNewLocation, 0, ...activeItem);
+
+		// create a new array that includes all of the todos
+		const newTodoList = activeTodos
+			.concat(pausedTodos)
+			.concat(completedTodos);
+
+		// update state with the new array
+		setTodos(newTodoList);
 	};
 
 	return (
@@ -59,48 +88,38 @@ function App() {
 					type="submit"
 					className="w-2/12 flex justify-center text-gray-100"
 				>
-					{/* As mentioned we should try to remove all SVGs into an icons folder */}
-					<svg
-						viewBox="0 0 20 20"
-						fill="currentColor"
-						className="plus w-10 h-10"
-					>
-						<path
-							fillRule="evenodd"
-							d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-							clipRule="evenodd"
-						/>
-					</svg>
+					<PlusIcon />
 				</button>
 			</form>
-			<div className="mx-4 mt-6">
-				{activeTodos.map((todo) => (
-					<Todo
-						key={todo.id}
-						todo={todo}
-						isEditable={isEditable}
-						editTodo={editTodo}
-						removeTodo={removeTodo}
-						pauseTodo={pauseTodo}
-						completeTodo={completeTodo}
-					/>
-				))}
-			</div>
+			<DragDropContext onDragEnd={onDragEnd}>
+				<Droppable droppableId="droppable">
+					{(provided, snapshot) => (
+						<div
+							className="mx-4 mt-6"
+							{...provided.droppableProps}
+							ref={provided.innerRef}
+						>
+							{activeTodos.map((todo, index) => (
+								<Todo
+									key={todo.id}
+									todo={todo}
+									isEditable={isEditable}
+									editTodo={editTodo}
+									removeTodo={removeTodo}
+									pauseTodo={pauseTodo}
+									completeTodo={completeTodo}
+									index={index}
+								/>
+							))}
+							{provided.placeholder}
+						</div>
+					)}
+				</Droppable>
+			</DragDropContext>
 			{pausedTodos.length > 0 && (
 				<div className="mb-4">
 					<div className="flex mx-2 mt-6 h-6 text-gray-100 items-center">
-						{/* As mentioned we should try to remove all SVGs into an icons folder */}
-						<svg
-							viewBox="0 0 20 20"
-							fill="currentColor"
-							className="chevron-right w-8 h-8"
-						>
-							<path
-								fillRule="evenodd"
-								d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-								clipRule="evenodd"
-							/>
-						</svg>
+						<ChevronRightIcon />
 						<h2 className="text-xl font-semibold">Do Later</h2>
 					</div>
 					<div className="mx-4 mt-6">
@@ -119,18 +138,7 @@ function App() {
 			{completedTodos.length > 0 && (
 				<div className="mb-4">
 					<div className="flex mx-2 mt-6 h-6 text-gray-100">
-						{/* As mentioned we should try to remove all SVGs into an icons folder */}
-						<svg
-							viewBox="0 0 20 20"
-							fill="currentColor"
-							className="chevron-right w-8 h-8"
-						>
-							<path
-								fillRule="evenodd"
-								d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
-								clipRule="evenodd"
-							/>
-						</svg>
+						<ChevronRightIcon />
 						<h2 className="text-xl font-semibold">Completed</h2>
 					</div>
 					<div className="mx-4 mt-6">
