@@ -86,6 +86,12 @@ function App() {
 					<PlusIcon />
 				</button>
 			</form>
+			<div className="mb-4">
+				<div className="flex mx-2 mt-6 h-6 text-gray-100 items-center">
+					<ChevronRightIcon />
+					<h2 className="text-xl font-semibold">Active</h2>
+				</div>
+			</div>
 			<DragDropContext onDragEnd={onDragEnd}>
 				<Droppable droppableId="droppable">
 					{(provided, snapshot) => (
