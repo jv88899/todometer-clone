@@ -56,13 +56,8 @@ function App() {
 		// add the active item back to activeTodos in the correct spot
 		activeTodos.splice(currentItemNewLocation, 0, ...activeItem);
 
-		// create a new array that includes all of the todos
-		const newTodoList = activeTodos
-			.concat(pausedTodos)
-			.concat(completedTodos);
-
 		// update state with the new array
-		setTodos(newTodoList);
+		setTodos([...activeTodos, ...pausedTodos, ...completedTodos]);
 	};
 
 	return (
