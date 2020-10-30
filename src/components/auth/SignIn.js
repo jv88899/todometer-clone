@@ -10,7 +10,8 @@ const SignIn = () => {
 	};
 
 	const handleSubmit = (e) => {
-		console.log(e);
+		e.preventDefault();
+		console.log(userEmail, userPassword);
 	};
 
 	return (
