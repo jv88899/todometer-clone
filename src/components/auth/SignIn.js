@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 const SignIn = () => {
 	const [userEmail, setUserEmail] = useState("");
@@ -47,6 +48,7 @@ const SignIn = () => {
 					<button disabled={loading}>Login</button>
 				</div>
 			</form>
+			No account? <Link to="/signup">Sign Up Here</Link>
 		</div>
 	);
 };
