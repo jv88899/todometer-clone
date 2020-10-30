@@ -8,7 +8,7 @@ const SignIn = () => {
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 
-	const { login } = useAuth();
+	const { signin } = useAuth();
 
 	const handleChange = (e) => {
 		if (e.target.id === "email") setUserEmail(e.target.value);
@@ -21,7 +21,7 @@ const SignIn = () => {
 		try {
 			setError("");
 			setLoading(true);
-			await login(userEmail, userPassword);
+			await signin(userEmail, userPassword);
 		} catch {
 			setError("Failed to sign in");
 		}
