@@ -7,7 +7,10 @@ const SignUp = () => {
 	const [userPassword, setUserPassword] = useState("");
 
 	const handleChange = (e) => {
-		return;
+		if (e.target.id === "firstname") setUserFirstName(e.target.value);
+		if (e.target.id === "lastname") setUserLastName(e.target.value);
+		if (e.target.id === "email") setUserEmail(e.target.value);
+		if (e.target.id === "password") setUserPassword(e.target.value);
 	};
 
 	const handleSubmit = (e) => {
@@ -29,6 +32,14 @@ const SignUp = () => {
 				<div>
 					<label htmlFor="email">Email</label>
 					<input type="email" id="email" onChange={handleChange} />
+				</div>
+				<div>
+					<label htmlFor="password">Password</label>
+					<input
+						type="password"
+						id="password"
+						onChange={handleChange}
+					/>
 				</div>
 			</form>
 		</div>
