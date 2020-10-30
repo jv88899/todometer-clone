@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
+import { Link } from "react-router-dom";
 
 const SignUp = () => {
 	const [userFirstName, setUserFirstName] = useState("");
@@ -75,6 +76,7 @@ const SignUp = () => {
 					<button disabled={loading}>Sign Up</button>
 				</div>
 			</form>
+			Already have an account? <Link to="/signin">Sign In Here</Link>
 		</div>
 	);
 };
