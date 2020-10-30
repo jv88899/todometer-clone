@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 
 const SignIn = () => {
+	const [userEmail, setUserEmail] = useState("");
+	const [userPassword, setUserPassword] = useState("");
+
 	const handleChange = (e) => {
-		console.log(e);
+		if (e.target.id === "email") setUserEmail(e.target.value);
+		if (e.target.id === "password") setUserPassword(e.target.value);
 	};
 
 	const handleSubmit = (e) => {
@@ -15,18 +19,14 @@ const SignIn = () => {
 				<h5>Sign In</h5>
 				<div>
 					<label htmlFor="email">Email</label>
-					<input
-						type="email"
-						id="email"
-						onChange={this.handleChange}
-					/>
+					<input type="email" id="email" onChange={handleChange} />
 				</div>
 				<div>
 					<label htmlFor="password">Password</label>
 					<input
 						type="password"
 						id="password"
-						onChange={this.handleChange}
+						onChange={handleChange}
 					/>
 				</div>
 				<div>
