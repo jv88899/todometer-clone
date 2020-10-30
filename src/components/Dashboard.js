@@ -1,17 +1,16 @@
 import React, { useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
-import CompletedTodo from "./components/CompletedTodo";
-import DateDisplay from "./components/DateDisplay";
-import Meter from "./components/Meter";
-import PausedTodo from "./components/PausedTodo";
-import SignIn from "./components/auth/SignIn";
-import Todo from "./components/Todo";
+import CompletedTodo from "./CompletedTodo";
+import DateDisplay from "./DateDisplay";
+import Meter from "./Meter";
+import PausedTodo from "./PausedTodo";
+import Todo from "./Todo";
 
 import { useTodos } from "../hooks/useTodos";
 
-import { ReactComponent as ChevronRightIcon } from "./icons/chevron-right.svg";
-import { ReactComponent as PlusIcon } from "./icons/plus.svg";
+import { ReactComponent as ChevronRightIcon } from "../icons/chevron-right.svg";
+import { ReactComponent as PlusIcon } from "../icons/plus.svg";
 
 const Dashboard = () => {
 	const {
