@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const SignUp = () => {
 	const [userFirstName, setUserFirstName] = useState("");
@@ -10,6 +10,7 @@ const SignUp = () => {
 	const [userConfirmPassword, setUserConfirmPassword] = useState("");
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
+	const history = useHistory();
 
 	const { signup } = useAuth();
 
@@ -33,6 +34,7 @@ const SignUp = () => {
 			setError("");
 			setLoading(true);
 			await signup(userEmail, userPassword);
+			history.push("/");
 		} catch {
 			setError("Failed to create an accout");
 		}
