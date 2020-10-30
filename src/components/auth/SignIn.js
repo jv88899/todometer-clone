@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useAuth } from "../../contexts/AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 const SignIn = () => {
 	const [userEmail, setUserEmail] = useState("");
 	const [userPassword, setUserPassword] = useState("");
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
+	const history = useHistory();
 
 	const { signin } = useAuth();
 
@@ -22,6 +23,7 @@ const SignIn = () => {
 			setError("");
 			setLoading(true);
 			await signin(userEmail, userPassword);
+			history.push("/");
 		} catch {
 			setError("Failed to sign in");
 		}
