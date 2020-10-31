@@ -4,6 +4,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import CompletedTodo from "./CompletedTodo";
 import DateDisplay from "./DateDisplay";
 import Meter from "./Meter";
+import Nav from "./Nav";
 import PausedTodo from "./PausedTodo";
 import Todo from "./Todo";
 
@@ -64,6 +65,7 @@ const Dashboard = () => {
 	};
 	return (
 		<div className="min-h-screen max-h-full w-full bg-purple-900">
+			<Nav />
 			<DateDisplay />
 			<Meter
 				todos={todos}
