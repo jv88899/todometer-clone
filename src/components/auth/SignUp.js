@@ -34,7 +34,7 @@ const SignUp = () => {
 			setError("");
 			setLoading(true);
 			await signup(userEmail, userPassword);
-			history.push("/");
+			history.push("/dashboard");
 		} catch {
 			setError("Failed to create an accout");
 		}

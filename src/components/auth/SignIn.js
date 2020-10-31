@@ -23,7 +23,7 @@ const SignIn = () => {
 			setError("");
 			setLoading(true);
 			await signin(userEmail, userPassword);
-			history.push("/");
+			history.push("/dashboard");
 		} catch {
 			setError("Failed to sign in");
 		}
