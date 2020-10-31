@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { firestore } from "../../firebase/config";
 import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
@@ -12,7 +13,7 @@ const SignUp = () => {
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
 
-	const { signup } = useAuth();
+	const { signup, currentUser } = useAuth();
 
 	const handleChange = (e) => {
 		if (e.target.id === "firstname") setUserFirstName(e.target.value);
@@ -30,14 +31,20 @@ const SignUp = () => {
 			return setError("Passwords do not match");
 		}
 
-		try {
-			setError("");
-			setLoading(true);
-			await signup(userEmail, userPassword);
-			history.push("/dashboard");
-		} catch {
-			setError("Failed to create an accout");
-		}
+		setError("");
+		setLoading(true);
+		signup(userEmail, userPassword).then((newUser) =>
+			firestore
+				.collection("users")
+				.doc(newUser.user.uid)
+				.set({
+					firstName: userFirstName,
+					lastName: userLastName,
+					todos: [],
+				})
+				.then(() => history.push("/dashboard"))
+				.catch(() => setError("Failed to create an account"))
+		);
 		setLoading(false);
 	};
 
