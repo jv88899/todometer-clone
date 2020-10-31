@@ -4,6 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 
 import Dashboard from "./components/Dashboard";
+import HomePage from "./components/homepage/HomePage";
 import SignIn from "./components/auth/SignIn";
 import SignUp from "./components/auth/SignUp";
 
@@ -13,7 +14,8 @@ function App() {
 			<BrowserRouter>
 				<div>
 					<Switch>
-						<Route exact path="/" component={Dashboard} />
+						<Route exact path="/" component={HomePage} />
+						<Route exact path="/dashboard" component={Dashboard} />
 						<Route exact path="/signin" component={SignIn} />
 						<Route exact path="/signup" component={SignUp} />
 					</Switch>
