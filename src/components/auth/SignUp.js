@@ -49,23 +49,23 @@ const SignUp = () => {
 	};
 
 	return (
-		<div>
-			<form onSubmit={handleSubmit}>
-				<h5>Sign Up</h5>
+		<div className="mx-4 mt-4 text-gray-100">
+			<h2 className="mb-4 text-2xl">Sign up for free</h2>
+			<form className="mb-4" onSubmit={handleSubmit}>
 				{error && <p>{error}</p>}
-				<div>
+				<div className="flex flex-col mb-4">
 					<label htmlFor="firstname">First Name</label>
 					<input type="text" id="firstname" onChange={handleChange} />
 				</div>
-				<div>
+				<div className="flex flex-col mb-4">
 					<label htmlFor="lastname">Last Name</label>
 					<input type="text" id="lastname" onChange={handleChange} />
 				</div>
-				<div>
+				<div className="flex flex-col mb-4">
 					<label htmlFor="email">Email</label>
 					<input type="email" id="email" onChange={handleChange} />
 				</div>
-				<div>
+				<div className="flex flex-col mb-4">
 					<label htmlFor="password">Password</label>
 					<input
 						type="password"
@@ -73,7 +73,7 @@ const SignUp = () => {
 						onChange={handleChange}
 					/>
 				</div>
-				<div>
+				<div className="flex flex-col mb-4">
 					<label htmlFor="confirmpassword">Confirm Password</label>
 					<input
 						type="password"
@@ -81,7 +81,7 @@ const SignUp = () => {
 						onChange={handleChange}
 					/>
 				</div>
-				<div>
+				<div className="flex flex-col mb-4">
 					<button disabled={loading}>Sign Up</button>
 				</div>
 			</form>
