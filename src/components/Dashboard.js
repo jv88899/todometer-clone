@@ -28,28 +28,14 @@ const Dashboard = () => {
 		completedTodos,
 		resetTodos,
 		setTodos,
+		getTodos,
+		updateTodos,
 	} = useTodos();
 
 	const [currentValue, setCurrentValue] = useState("");
 	const [isEditable, setIsEditable] = useState(false);
 
 	const { currentUser } = useAuth();
-
-	const getTodos = async () => {
-		const ref = firestore.collection("users").doc(currentUser.uid);
-		ref.get()
-			.then((doc) => {
-				if (doc.exists) {
-					console.log("document data:", doc.data().todos);
-					setTodos(doc.data().todos);
-				} else {
-					console.log("no such document");
-				}
-			})
-			.catch((error) => {
-				console.log("error getting document", error);
-			});
-	};
 
 	useEffect(() => {
 		getTodos();
@@ -65,6 +51,7 @@ const Dashboard = () => {
 		if (!currentValue) return;
 
 		createTodo(currentValue);
+		getTodos();
 		setCurrentValue("");
 	};
 

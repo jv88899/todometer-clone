@@ -98,6 +98,22 @@ export const useTodos = () => {
 		changeStateOfTodo(todo, STATES.COMPLETED);
 	};
 
+	const updateTodos = (newTodos) => {
+		const ref = firestore.collection("users").doc(currentUser.uid);
+		const setWithMerge = ref.set({ todos: newTodos }, { merge: true });
+	};
+
+	const getTodos = () => {
+		const ref = firestore.collection("users").doc(currentUser.uid);
+		ref.get()
+			.then((doc) => {
+				setTodos(doc.data().todos);
+			})
+			.catch((error) => {
+				console.log("error getting document", error);
+			});
+	};
+
 	const resetTodos = () => setTodos([]);
 
 	// const createTodo = (text) => {
@@ -117,18 +133,26 @@ export const useTodos = () => {
 		// 	...prev,
 		// 	{ id: uid(), state: STATES.ACTIVE, text },
 		// ]);
-		const ref = firestore.collection("users");
-		ref.doc(currentUser.uid)
-			.set({
+		// const ref = firestore.collection("users");
+		// ref.doc(currentUser.uid)
+		// 	.set({
+		// 		todos: [...todos, { id: uid(), state: STATES.ACTIVE, text }],
+		// 	})
+		// 	.then(() => {
+		// 		ref.doc(currentUser.uid)
+		// 			.get()
+		// 			.then((doc) => {
+		// 				setTodos(doc.data().todos);
+		// 			});
+		// 	});
+		const ref = firestore.collection("users").doc(currentUser.uid);
+		const setWithMerge = ref.set(
+			{
 				todos: [...todos, { id: uid(), state: STATES.ACTIVE, text }],
-			})
-			.then(() => {
-				ref.doc(currentUser.uid)
-					.get()
-					.then((doc) => {
-						setTodos(doc.data().todos);
-					});
-			});
+			},
+			{ merge: true }
+		);
+		// .then(() => getTodos());
 	};
 
 	return {
@@ -146,5 +170,7 @@ export const useTodos = () => {
 		removeTodo,
 		resetTodos,
 		setTodos,
+		getTodos,
+		updateTodos,
 	};
 };
