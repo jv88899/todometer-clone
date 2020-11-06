@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { firestore } from "../firebase/config";
+import { useAuth, AuthProvider } from "../contexts/AuthContext";
 import uid from "uid";
 
 export const STATES = {
@@ -63,6 +65,8 @@ export const useTodos = () => {
 	// ]);
 	const [todos, setTodos] = useState([]);
 
+	const { currentUser } = useAuth();
+
 	const pausedTodos = todos.filter((todo) => todo.state === STATES.PAUSED);
 
 	const completedTodos = todos.filter(
@@ -96,11 +100,35 @@ export const useTodos = () => {
 
 	const resetTodos = () => setTodos([]);
 
+	// const createTodo = (text) => {
+	// 	setTodos((prev) => [
+	// 		...prev,
+	// 		{ id: uid(), state: STATES.ACTIVE, text },
+	// 	]);
+	// };
+
 	const createTodo = (text) => {
-		setTodos((prev) => [
-			...prev,
-			{ id: uid(), state: STATES.ACTIVE, text },
-		]);
+		// console.log("state", todos);
+		// const ref = firestore.collection("users");
+		// ref.doc(currentUser.uid).set({
+		// 	todos: [...todos, { id: uid(), state: STATES.ACTIVE, text }],
+		// });
+		// setTodos((prev) => [
+		// 	...prev,
+		// 	{ id: uid(), state: STATES.ACTIVE, text },
+		// ]);
+		const ref = firestore.collection("users");
+		ref.doc(currentUser.uid)
+			.set({
+				todos: [...todos, { id: uid(), state: STATES.ACTIVE, text }],
+			})
+			.then(() => {
+				ref.doc(currentUser.uid)
+					.get()
+					.then((doc) => {
+						setTodos(doc.data().todos);
+					});
+			});
 	};
 
 	return {
