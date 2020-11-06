@@ -10,59 +10,6 @@ export const STATES = {
 };
 
 export const useTodos = () => {
-	// const [todos, setTodos] = useState([
-	// 	{
-	// 		id: uid(),
-	// 		text: "This is my first todo",
-	// 		state: STATES.ACTIVE,
-	// 	},
-	// 	{
-	// 		id: uid(),
-	// 		text: "This is my second todo",
-	// 		state: STATES.ACTIVE,
-	// 	},
-	// 	{
-	// 		id: uid(),
-	// 		text: "This is my third todo",
-	// 		state: STATES.ACTIVE,
-	// 	},
-	// 	{
-	// 		id: uid(),
-	// 		text: "This is my fourth todo",
-	// 		state: STATES.ACTIVE,
-	// 	},
-	// 	{
-	// 		id: uid(),
-	// 		text: "This is my fifth todo",
-	// 		state: STATES.ACTIVE,
-	// 	},
-
-	// 	{
-	// 		id: uid(),
-	// 		text: "This todo is paused",
-	// 		state: STATES.PAUSED,
-	// 	},
-	// 	{
-	// 		id: uid(),
-	// 		text: "This todo is also paused",
-	// 		state: STATES.PAUSED,
-	// 	},
-	// 	{
-	// 		id: uid(),
-	// 		text: "This todo is complete",
-	// 		state: STATES.COMPLETED,
-	// 	},
-	// 	{
-	// 		id: uid(),
-	// 		text: "This todo is also complete",
-	// 		state: STATES.COMPLETED,
-	// 	},
-	// 	{
-	// 		id: uid(),
-	// 		text: "Hey, look at that, another completed todo",
-	// 		state: STATES.COMPLETED,
-	// 	},
-	// ]);
 	const [todos, setTodos] = useState([]);
 
 	const { currentUser } = useAuth();
@@ -116,35 +63,7 @@ export const useTodos = () => {
 
 	const resetTodos = () => setTodos([]);
 
-	// const createTodo = (text) => {
-	// 	setTodos((prev) => [
-	// 		...prev,
-	// 		{ id: uid(), state: STATES.ACTIVE, text },
-	// 	]);
-	// };
-
 	const createTodo = (text) => {
-		// console.log("state", todos);
-		// const ref = firestore.collection("users");
-		// ref.doc(currentUser.uid).set({
-		// 	todos: [...todos, { id: uid(), state: STATES.ACTIVE, text }],
-		// });
-		// setTodos((prev) => [
-		// 	...prev,
-		// 	{ id: uid(), state: STATES.ACTIVE, text },
-		// ]);
-		// const ref = firestore.collection("users");
-		// ref.doc(currentUser.uid)
-		// 	.set({
-		// 		todos: [...todos, { id: uid(), state: STATES.ACTIVE, text }],
-		// 	})
-		// 	.then(() => {
-		// 		ref.doc(currentUser.uid)
-		// 			.get()
-		// 			.then((doc) => {
-		// 				setTodos(doc.data().todos);
-		// 			});
-		// 	});
 		const ref = firestore.collection("users").doc(currentUser.uid);
 		const setWithMerge = ref.set(
 			{
@@ -152,7 +71,6 @@ export const useTodos = () => {
 			},
 			{ merge: true }
 		);
-		// .then(() => getTodos());
 	};
 
 	return {
