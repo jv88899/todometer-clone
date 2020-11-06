@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { firestore } from "../firebase/config";
 
 import CompletedTodo from "./CompletedTodo";
 import DateDisplay from "./DateDisplay";
@@ -8,6 +9,7 @@ import Nav from "./Nav";
 import PausedTodo from "./PausedTodo";
 import Todo from "./Todo";
 
+import { useAuth } from "../contexts/AuthContext";
 import { useTodos } from "../hooks/useTodos";
 
 import { ReactComponent as ChevronRightIcon } from "../icons/chevron-right.svg";
@@ -30,6 +32,28 @@ const Dashboard = () => {
 
 	const [currentValue, setCurrentValue] = useState("");
 	const [isEditable, setIsEditable] = useState(false);
+
+	const { currentUser } = useAuth();
+
+	const getTodos = async () => {
+		const ref = firestore.collection("users").doc(currentUser.uid);
+		ref.get()
+			.then((doc) => {
+				if (doc.exists) {
+					console.log("document data:", doc.data().todos);
+					setTodos(doc.data().todos);
+				} else {
+					console.log("no such document");
+				}
+			})
+			.catch((error) => {
+				console.log("error getting document", error);
+			});
+	};
+
+	useEffect(() => {
+		getTodos();
+	}, []);
 
 	const editTodo = () => {
 		setIsEditable(true);

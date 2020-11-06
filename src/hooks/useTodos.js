@@ -8,59 +8,60 @@ export const STATES = {
 };
 
 export const useTodos = () => {
-	const [todos, setTodos] = useState([
-		{
-			id: uid(),
-			text: "This is my first todo",
-			state: STATES.ACTIVE,
-		},
-		{
-			id: uid(),
-			text: "This is my second todo",
-			state: STATES.ACTIVE,
-		},
-		{
-			id: uid(),
-			text: "This is my third todo",
-			state: STATES.ACTIVE,
-		},
-		{
-			id: uid(),
-			text: "This is my fourth todo",
-			state: STATES.ACTIVE,
-		},
-		{
-			id: uid(),
-			text: "This is my fifth todo",
-			state: STATES.ACTIVE,
-		},
+	// const [todos, setTodos] = useState([
+	// 	{
+	// 		id: uid(),
+	// 		text: "This is my first todo",
+	// 		state: STATES.ACTIVE,
+	// 	},
+	// 	{
+	// 		id: uid(),
+	// 		text: "This is my second todo",
+	// 		state: STATES.ACTIVE,
+	// 	},
+	// 	{
+	// 		id: uid(),
+	// 		text: "This is my third todo",
+	// 		state: STATES.ACTIVE,
+	// 	},
+	// 	{
+	// 		id: uid(),
+	// 		text: "This is my fourth todo",
+	// 		state: STATES.ACTIVE,
+	// 	},
+	// 	{
+	// 		id: uid(),
+	// 		text: "This is my fifth todo",
+	// 		state: STATES.ACTIVE,
+	// 	},
 
-		{
-			id: uid(),
-			text: "This todo is paused",
-			state: STATES.PAUSED,
-		},
-		{
-			id: uid(),
-			text: "This todo is also paused",
-			state: STATES.PAUSED,
-		},
-		{
-			id: uid(),
-			text: "This todo is complete",
-			state: STATES.COMPLETED,
-		},
-		{
-			id: uid(),
-			text: "This todo is also complete",
-			state: STATES.COMPLETED,
-		},
-		{
-			id: uid(),
-			text: "Hey, look at that, another completed todo",
-			state: STATES.COMPLETED,
-		},
-	]);
+	// 	{
+	// 		id: uid(),
+	// 		text: "This todo is paused",
+	// 		state: STATES.PAUSED,
+	// 	},
+	// 	{
+	// 		id: uid(),
+	// 		text: "This todo is also paused",
+	// 		state: STATES.PAUSED,
+	// 	},
+	// 	{
+	// 		id: uid(),
+	// 		text: "This todo is complete",
+	// 		state: STATES.COMPLETED,
+	// 	},
+	// 	{
+	// 		id: uid(),
+	// 		text: "This todo is also complete",
+	// 		state: STATES.COMPLETED,
+	// 	},
+	// 	{
+	// 		id: uid(),
+	// 		text: "Hey, look at that, another completed todo",
+	// 		state: STATES.COMPLETED,
+	// 	},
+	// ]);
+	const [todos, setTodos] = useState([]);
 
 	const pausedTodos = todos.filter((todo) => todo.state === STATES.PAUSED);
 
