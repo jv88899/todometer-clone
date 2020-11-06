@@ -73,6 +73,9 @@ const Dashboard = () => {
 
 		// update state with the new array
 		setTodos([...activeTodos, ...pausedTodos, ...completedTodos]);
+
+		// update the database
+		updateTodos([...activeTodos, ...pausedTodos, ...completedTodos]);
 	};
 	return (
 		<div className="min-h-screen max-h-full w-full bg-purple-900">

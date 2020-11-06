@@ -100,7 +100,7 @@ export const useTodos = () => {
 
 	const updateTodos = (newTodos) => {
 		const ref = firestore.collection("users").doc(currentUser.uid);
-		const setWithMerge = ref.set({ todos: newTodos }, { merge: true });
+		ref.update({ todos: newTodos });
 	};
 
 	const getTodos = () => {
