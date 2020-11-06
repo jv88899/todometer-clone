@@ -61,7 +61,10 @@ export const useTodos = () => {
 			});
 	};
 
-	const resetTodos = () => setTodos([]);
+	const resetTodos = () => {
+		setTodos([]);
+		updateTodos([]);
+	};
 
 	const createTodo = (text) => {
 		const ref = firestore.collection("users").doc(currentUser.uid);
