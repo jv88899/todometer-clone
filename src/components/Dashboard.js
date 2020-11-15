@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { firestore } from "../firebase/config";
 
@@ -27,8 +27,6 @@ const Dashboard = () => {
 		completeTodo,
 		completedTodos,
 		resetTodos,
-		setTodos,
-		getTodos,
 		updateTodos,
 	} = useTodos();
 
@@ -36,10 +34,6 @@ const Dashboard = () => {
 	const [isEditable, setIsEditable] = useState(false);
 
 	const { currentUser } = useAuth();
-
-	useEffect(() => {
-		getTodos();
-	}, []);
 
 	const editTodo = () => {
 		setIsEditable(true);
@@ -51,7 +45,6 @@ const Dashboard = () => {
 		if (!currentValue) return;
 
 		createTodo(currentValue);
-		getTodos();
 		setCurrentValue("");
 	};
 
@@ -70,9 +63,6 @@ const Dashboard = () => {
 
 		// add the active item back to activeTodos in the correct spot
 		activeTodos.splice(currentItemNewLocation, 0, ...activeItem);
-
-		// update state with the new array
-		setTodos([...activeTodos, ...pausedTodos, ...completedTodos]);
 
 		// update the database
 		updateTodos([...activeTodos, ...pausedTodos, ...completedTodos]);

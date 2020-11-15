@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { firestore } from "../firebase/config";
 import { useAuth, AuthProvider } from "../contexts/AuthContext";
 import uid from "uid";
@@ -14,7 +14,15 @@ export const useTodos = () => {
 
 	const { currentUser } = useAuth();
 
+	const userDoc = useMemo(() => {
+		return firestore.collection("users").doc(currentUser.uid);
+	}, [currentUser.uid]);
+
 	const pausedTodos = todos.filter((todo) => todo.state === STATES.PAUSED);
+
+	useEffect(() => {
+		getTodos();
+	}, []);
 
 	const completedTodos = todos.filter(
 		(todo) => todo.state === STATES.COMPLETED
@@ -23,27 +31,26 @@ export const useTodos = () => {
 	const activeTodos = todos.filter((todo) => todo.state === STATES.ACTIVE);
 
 	const removeTodo = (id) => {
-		setTodos(todos.filter((todo) => todo.id !== id));
+		const newTodos = todos.filter((todo) => todo.id !== id);
+		updateFirestoreTodos(newTodos);
+	};
+
+	const updateFirestoreTodos = (todos) => {
+		userDoc.set({ todos }, { merge: true });
 	};
 
 	const changeStateOfTodo = (todo, newState) => {
-		setTodos((prev) =>
-			prev.map((t) => {
-				if (t !== todo) return t;
-				return { ...t, state: newState };
-			})
-		);
+		const updatedTodos = todos.map((t) => {
+			if (t !== todo) return t;
+			return { ...t, state: newState };
+		});
+		updateFirestoreTodos(updatedTodos);
 	};
 
-	const pauseTodo = async (todo) => {
+	const pauseTodo = (todo) => {
 		const isPaused = todo.state === STATES.PAUSED;
 		const newState = isPaused ? STATES.ACTIVE : STATES.PAUSED;
 		changeStateOfTodo(todo, newState);
-
-		// why doesn't this work?
-		const newTodos = todos;
-		// console.log("todos is", todos);
-		updateTodos(newTodos);
 	};
 
 	const completeTodo = (todo) => {
@@ -51,36 +58,26 @@ export const useTodos = () => {
 	};
 
 	const updateTodos = (newTodos) => {
-		const ref = firestore.collection("users").doc(currentUser.uid);
-		ref.update({ todos: newTodos });
+		userDoc.update({ todos: newTodos });
 	};
 
 	const getTodos = () => {
-		const ref = firestore.collection("users").doc(currentUser.uid);
-		ref.get()
-			.then((doc) => {
-				setTodos(doc.data().todos);
-			})
-			.catch((error) => {
-				console.log("error getting document", error);
-			});
+		userDoc.onSnapshot((doc) => {
+			console.log("CHANGE HAPPENED");
+			setTodos(doc.data().todos);
+		});
 	};
 
 	const resetTodos = () => {
-		// is this correct? Or would I just do updateTodos()
-		// and then do getTodos()
-		setTodos([]);
-		updateTodos([]);
+		updateFirestoreTodos([]);
 	};
 
 	const createTodo = (text) => {
-		const ref = firestore.collection("users").doc(currentUser.uid);
-		const setWithMerge = ref.set(
-			{
-				todos: [...todos, { id: uid(), state: STATES.ACTIVE, text }],
-			},
-			{ merge: true }
-		);
+		const updatedTodos = [
+			...todos,
+			{ id: uid(), state: STATES.ACTIVE, text },
+		];
+		updateFirestoreTodos(updatedTodos);
 	};
 
 	return {
