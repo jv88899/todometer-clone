@@ -49,24 +49,37 @@ const SignUp = () => {
 	};
 
 	return (
-		<div className="mx-4 mt-4 text-gray-100">
-			<h2 className="mb-4 text-2xl">Sign up for free</h2>
+		<div className="mx-4 mt-4">
+			<h2 className="mb-4 text-2xl text-gray-100">Sign up for free</h2>
 			<form className="mb-4" onSubmit={handleSubmit}>
 				{error && <p>{error}</p>}
 				<div className="flex flex-col mb-4">
-					<label htmlFor="firstname">First Name</label>
+					<label htmlFor="firstname" className="text-gray-100">
+						First Name
+					</label>
 					<input type="text" id="firstname" onChange={handleChange} />
 				</div>
 				<div className="flex flex-col mb-4">
-					<label htmlFor="lastname">Last Name</label>
-					<input type="text" id="lastname" onChange={handleChange} />
+					<label htmlFor="lastname" className="text-gray-100">
+						Last Name
+					</label>
+					<input
+						type="text"
+						id="lastname"
+						onChange={handleChange}
+						value={userFirstName}
+					/>
 				</div>
 				<div className="flex flex-col mb-4">
-					<label htmlFor="email">Email</label>
+					<label htmlFor="email" className="text-gray-100">
+						Email
+					</label>
 					<input type="email" id="email" onChange={handleChange} />
 				</div>
 				<div className="flex flex-col mb-4">
-					<label htmlFor="password">Password</label>
+					<label htmlFor="password" className="text-gray-100">
+						Password
+					</label>
 					<input
 						type="password"
 						id="password"
@@ -74,18 +87,22 @@ const SignUp = () => {
 					/>
 				</div>
 				<div className="flex flex-col mb-4">
-					<label htmlFor="confirmpassword">Confirm Password</label>
+					<label htmlFor="confirmpassword" className="text-gray-100">
+						Confirm Password
+					</label>
 					<input
 						type="password"
 						id="confirmpassword"
 						onChange={handleChange}
 					/>
 				</div>
-				<div className="flex flex-col mb-4">
+				<div className="flex flex-col mb-4 text-gray-100">
 					<button disabled={loading}>Sign Up</button>
 				</div>
 			</form>
-			Already have an account? <Link to="/signin">Sign In Here</Link>
+			<p className="text-gray-100">
+				Already have an account? <Link to="/signin">Sign In Here</Link>
+			</p>
 		</div>
 	);
 };
