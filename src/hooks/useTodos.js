@@ -35,10 +35,15 @@ export const useTodos = () => {
 		);
 	};
 
-	const pauseTodo = (todo) => {
+	const pauseTodo = async (todo) => {
 		const isPaused = todo.state === STATES.PAUSED;
 		const newState = isPaused ? STATES.ACTIVE : STATES.PAUSED;
 		changeStateOfTodo(todo, newState);
+
+		// why doesn't this work?
+		const newTodos = todos;
+		// console.log("todos is", todos);
+		updateTodos(newTodos);
 	};
 
 	const completeTodo = (todo) => {
@@ -62,6 +67,8 @@ export const useTodos = () => {
 	};
 
 	const resetTodos = () => {
+		// is this correct? Or would I just do updateTodos()
+		// and then do getTodos()
 		setTodos([]);
 		updateTodos([]);
 	};
