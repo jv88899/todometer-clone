@@ -3,8 +3,14 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
 const SignIn = () => {
-	const [userEmail, setUserEmail] = useState("");
-	const [userPassword, setUserPassword] = useState("");
+	const [formValues, setFormValues] = useState({
+		email: "",
+		password: "",
+	});
+
+	const updateFormValue = (key, value) =>
+		setFormValues((prev) => ({ ...prev, [key]: value }));
+
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
@@ -12,8 +18,7 @@ const SignIn = () => {
 	const { signin } = useAuth();
 
 	const handleChange = (e) => {
-		if (e.target.id === "email") setUserEmail(e.target.value);
-		if (e.target.id === "password") setUserPassword(e.target.value);
+		updateFormValue(e.target.name, e.target.value);
 	};
 
 	const handleSubmit = async (e) => {
@@ -22,7 +27,7 @@ const SignIn = () => {
 		try {
 			setError("");
 			setLoading(true);
-			await signin(userEmail, userPassword);
+			await signin(formValues.email, formValues.password);
 			history.push("/dashboard");
 		} catch {
 			setError("Failed to sign in");
@@ -36,14 +41,20 @@ const SignIn = () => {
 				{error && <p>{error}</p>}
 				<div>
 					<label htmlFor="email">Email</label>
-					<input type="email" id="email" onChange={handleChange} />
+					<input
+						type="email"
+						name="email"
+						onChange={handleChange}
+						value={formValues.email}
+					/>
 				</div>
 				<div>
 					<label htmlFor="password">Password</label>
 					<input
 						type="password"
-						id="password"
+						name="password"
 						onChange={handleChange}
+						value={formValues.password}
 					/>
 				</div>
 				<div>
