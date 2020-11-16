@@ -35,12 +35,16 @@ const SignIn = () => {
 	};
 
 	return (
-		<div>
-			<form onSubmit={handleSubmit}>
-				<h5>Sign In</h5>
+		<div className="mx-4 mt-4">
+			<h2 className="mb-4 text-2xl text-gray-100">
+				Sign in to your account
+			</h2>
+			<form className="mb-4" onSubmit={handleSubmit}>
 				{error && <p>{error}</p>}
-				<div>
-					<label htmlFor="email">Email</label>
+				<div className="flex flex-col mb-4">
+					<label htmlFor="email" className="text-gray-100">
+						Email
+					</label>
 					<input
 						type="email"
 						name="email"
@@ -48,8 +52,10 @@ const SignIn = () => {
 						value={formValues.email}
 					/>
 				</div>
-				<div>
-					<label htmlFor="password">Password</label>
+				<div className="flex flex-col mb-4">
+					<label htmlFor="password" className="text-gray-100">
+						Password
+					</label>
 					<input
 						type="password"
 						name="password"
@@ -57,11 +63,13 @@ const SignIn = () => {
 						value={formValues.password}
 					/>
 				</div>
-				<div>
+				<div className="flex flex-col mb-4 text-gray-100">
 					<button disabled={loading}>Login</button>
 				</div>
 			</form>
-			No account? <Link to="/signup">Sign Up Here</Link>
+			<p className="text-gray-100">
+				No account? <Link to="/signup">Sign Up Here</Link>
+			</p>
 		</div>
 	);
 };
