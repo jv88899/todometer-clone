@@ -9,6 +9,7 @@ export const useAuth = () => {
 
 export const AuthProvider = ({ children }) => {
 	const [currentUser, setCurrentUser] = useState();
+	const [isAuthenticated, setIsAuthenticated] = useState(false);
 	const [loading, setLoading] = useState(true);
 
 	const signup = (email, password) => {
@@ -32,7 +33,13 @@ export const AuthProvider = ({ children }) => {
 		return unsubscribe;
 	}, []);
 
-	const value = { currentUser, signup, signin, logout };
+	// if (currentUser) {
+	// 	setIsAuthenticated(true);
+	// } else {
+	// 	setIsAuthenticated(false);
+	// }
+
+	const value = { currentUser, signup, signin, logout, isAuthenticated };
 
 	return (
 		<AuthContext.Provider value={value}>
