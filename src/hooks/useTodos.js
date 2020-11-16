@@ -1,4 +1,6 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
+import { firestore } from "../firebase/config";
+import { useAuth } from "../contexts/AuthContext";
 import uid from "uid";
 
 export const STATES = {
@@ -8,61 +10,20 @@ export const STATES = {
 };
 
 export const useTodos = () => {
-	const [todos, setTodos] = useState([
-		{
-			id: uid(),
-			text: "This is my first todo",
-			state: STATES.ACTIVE,
-		},
-		{
-			id: uid(),
-			text: "This is my second todo",
-			state: STATES.ACTIVE,
-		},
-		{
-			id: uid(),
-			text: "This is my third todo",
-			state: STATES.ACTIVE,
-		},
-		{
-			id: uid(),
-			text: "This is my fourth todo",
-			state: STATES.ACTIVE,
-		},
-		{
-			id: uid(),
-			text: "This is my fifth todo",
-			state: STATES.ACTIVE,
-		},
+	const [todos, setTodos] = useState([]);
 
-		{
-			id: uid(),
-			text: "This todo is paused",
-			state: STATES.PAUSED,
-		},
-		{
-			id: uid(),
-			text: "This todo is also paused",
-			state: STATES.PAUSED,
-		},
-		{
-			id: uid(),
-			text: "This todo is complete",
-			state: STATES.COMPLETED,
-		},
-		{
-			id: uid(),
-			text: "This todo is also complete",
-			state: STATES.COMPLETED,
-		},
-		{
-			id: uid(),
-			text: "Hey, look at that, another completed todo",
-			state: STATES.COMPLETED,
-		},
-	]);
+	const { currentUser } = useAuth();
+
+	const userDoc = useMemo(() => {
+		if (!currentUser) return null;
+		return firestore.collection("users").doc(currentUser.uid);
+	}, [currentUser]);
 
 	const pausedTodos = todos.filter((todo) => todo.state === STATES.PAUSED);
+
+	useEffect(() => {
+		getTodos();
+	}, []);
 
 	const completedTodos = todos.filter(
 		(todo) => todo.state === STATES.COMPLETED
@@ -71,16 +32,20 @@ export const useTodos = () => {
 	const activeTodos = todos.filter((todo) => todo.state === STATES.ACTIVE);
 
 	const removeTodo = (id) => {
-		setTodos(todos.filter((todo) => todo.id !== id));
+		const newTodos = todos.filter((todo) => todo.id !== id);
+		updateFirestoreTodos(newTodos);
+	};
+
+	const updateFirestoreTodos = (todos) => {
+		userDoc.set({ todos }, { merge: true });
 	};
 
 	const changeStateOfTodo = (todo, newState) => {
-		setTodos((prev) =>
-			prev.map((t) => {
-				if (t !== todo) return t;
-				return { ...t, state: newState };
-			})
-		);
+		const updatedTodos = todos.map((t) => {
+			if (t !== todo) return t;
+			return { ...t, state: newState };
+		});
+		updateFirestoreTodos(updatedTodos);
 	};
 
 	const pauseTodo = (todo) => {
@@ -93,13 +58,27 @@ export const useTodos = () => {
 		changeStateOfTodo(todo, STATES.COMPLETED);
 	};
 
-	const resetTodos = () => setTodos([]);
+	const updateTodos = (newTodos) => {
+		userDoc.update({ todos: newTodos });
+	};
+
+	const getTodos = () => {
+		userDoc.onSnapshot((doc) => {
+			console.log("CHANGE HAPPENED");
+			setTodos(doc.data().todos);
+		});
+	};
+
+	const resetTodos = () => {
+		updateFirestoreTodos([]);
+	};
 
 	const createTodo = (text) => {
-		setTodos((prev) => [
-			...prev,
+		const updatedTodos = [
+			...todos,
 			{ id: uid(), state: STATES.ACTIVE, text },
-		]);
+		];
+		updateFirestoreTodos(updatedTodos);
 	};
 
 	return {
@@ -117,5 +96,7 @@ export const useTodos = () => {
 		removeTodo,
 		resetTodos,
 		setTodos,
+		getTodos,
+		updateTodos,
 	};
 };
