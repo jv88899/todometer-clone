@@ -4,11 +4,16 @@ import { useAuth } from "../../contexts/AuthContext";
 import { Link, useHistory } from "react-router-dom";
 
 const SignUp = () => {
-	const [userFirstName, setUserFirstName] = useState("");
-	const [userLastName, setUserLastName] = useState("");
-	const [userEmail, setUserEmail] = useState("");
-	const [userPassword, setUserPassword] = useState("");
-	const [userConfirmPassword, setUserConfirmPassword] = useState("");
+	const [formValues, setFormValues] = useState({
+		firstName: "",
+		lastName: "",
+		email: "",
+		password: "",
+		confirmPassword: "",
+	});
+	const updateFormValue = (key, value) =>
+		setFormValues((prev) => ({ ...prev, [key]: value }));
+
 	const [error, setError] = useState("");
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
@@ -16,30 +21,33 @@ const SignUp = () => {
 	const { signup, currentUser } = useAuth();
 
 	const handleChange = (e) => {
-		if (e.target.id === "firstname") setUserFirstName(e.target.value);
-		if (e.target.id === "lastname") setUserLastName(e.target.value);
-		if (e.target.id === "email") setUserEmail(e.target.value);
-		if (e.target.id === "password") setUserPassword(e.target.value);
-		if (e.target.id === "confirmpassword")
-			setUserConfirmPassword(e.target.value);
+		updateFormValue(e.target.name, e.target.value);
 	};
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 
-		if (userPassword !== userConfirmPassword) {
+		const {
+			firstName,
+			lastName,
+			email,
+			password,
+			confirmPassword,
+		} = formValues;
+
+		if (password !== confirmPassword) {
 			return setError("Passwords do not match");
 		}
 
 		setError("");
 		setLoading(true);
-		signup(userEmail, userPassword).then((newUser) =>
+		signup(email, password).then((newUser) =>
 			firestore
 				.collection("users")
 				.doc(newUser.user.uid)
 				.set({
-					firstName: userFirstName,
-					lastName: userLastName,
+					firstName,
+					lastName,
 					todos: [],
 				})
 				.then(() => history.push("/dashboard"))
@@ -57,7 +65,12 @@ const SignUp = () => {
 					<label htmlFor="firstname" className="text-gray-100">
 						First Name
 					</label>
-					<input type="text" id="firstname" onChange={handleChange} />
+					<input
+						type="text"
+						name="firstName"
+						onChange={handleChange}
+						value={formValues.firstName}
+					/>
 				</div>
 				<div className="flex flex-col mb-4">
 					<label htmlFor="lastname" className="text-gray-100">
@@ -65,16 +78,21 @@ const SignUp = () => {
 					</label>
 					<input
 						type="text"
-						id="lastname"
+						name="lastName"
 						onChange={handleChange}
-						value={userFirstName}
+						value={formValues.lastName}
 					/>
 				</div>
 				<div className="flex flex-col mb-4">
 					<label htmlFor="email" className="text-gray-100">
 						Email
 					</label>
-					<input type="email" id="email" onChange={handleChange} />
+					<input
+						type="email"
+						name="email"
+						onChange={handleChange}
+						value={formValues.email}
+					/>
 				</div>
 				<div className="flex flex-col mb-4">
 					<label htmlFor="password" className="text-gray-100">
@@ -82,8 +100,9 @@ const SignUp = () => {
 					</label>
 					<input
 						type="password"
-						id="password"
+						name="password"
 						onChange={handleChange}
+						value={formValues.password}
 					/>
 				</div>
 				<div className="flex flex-col mb-4">
@@ -92,8 +111,9 @@ const SignUp = () => {
 					</label>
 					<input
 						type="password"
-						id="confirmpassword"
+						name="confirmPassword"
 						onChange={handleChange}
+						value={formValues.confirmPassword}
 					/>
 				</div>
 				<div className="flex flex-col mb-4 text-gray-100">

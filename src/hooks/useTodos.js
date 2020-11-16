@@ -15,8 +15,9 @@ export const useTodos = () => {
 	const { currentUser } = useAuth();
 
 	const userDoc = useMemo(() => {
+		if (!currentUser) return null;
 		return firestore.collection("users").doc(currentUser.uid);
-	}, [currentUser.uid]);
+	}, [currentUser]);
 
 	const pausedTodos = todos.filter((todo) => todo.state === STATES.PAUSED);
 
