@@ -10,6 +10,7 @@ import SignUp from "./components/auth/SignUp";
 
 const AuthenticatedDashboard = () => {
 	const { currentUser } = useAuth();
+
 	if (currentUser === null) {
 		return <Redirect to="/signin" />;
 	}
