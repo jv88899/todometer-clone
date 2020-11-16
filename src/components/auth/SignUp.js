@@ -18,7 +18,7 @@ const SignUp = () => {
 	const [loading, setLoading] = useState(false);
 	const history = useHistory();
 
-	const { signup, currentUser } = useAuth();
+	const { signup } = useAuth();
 
 	const handleChange = (e) => {
 		updateFormValue(e.target.name, e.target.value);

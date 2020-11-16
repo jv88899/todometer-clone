@@ -1,6 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { firestore } from "../firebase/config";
-import { useAuth, AuthProvider } from "../contexts/AuthContext";
+import { useAuth } from "../contexts/AuthContext";
 import uid from "uid";
 
 export const STATES = {
