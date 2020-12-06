@@ -21,7 +21,7 @@ const HomePage = () => {
 								d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"
 							/>
 						</svg>
-						<h2 className="text-gray-100">TODO</h2>
+						<h2 className="text-gray-100 py-1 ml-2">TODO</h2>
 					</div>
 					<div className="md:hidden">
 						<button>
@@ -44,19 +44,19 @@ const HomePage = () => {
 					<div className="hidden space-x-10 md:flex md:ml-10 md:mr-3">
 						<Link
 							to="/"
-							className="font-medium text-white hover:text-gray-300"
+							className="font-medium text-white hover:text-gray-300 py-2"
 						>
 							About
 						</Link>
 						<Link
 							to="/pricing"
-							className="font-medium text-white hover:text-gray-300"
+							className="font-medium text-white hover:text-gray-300 py-2"
 						>
 							Pricing
 						</Link>
 						<Link
 							to="/signin"
-							className="font-medium text-white hover:text-gray-300"
+							className="px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-gray-600 hover:bg-gray-700"
 						>
 							Sign In
 						</Link>
@@ -90,7 +90,7 @@ const HomePage = () => {
 												</div>
 												<div className="relative flex justify-center text-sm">
 													<span className="px-2 bg-white text-gray-500">
-														Sign In
+														Sign Up
 													</span>
 												</div>
 											</div>
