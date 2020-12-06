@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
 	return (
@@ -22,7 +23,7 @@ const HomePage = () => {
 						</svg>
 						<h2 className="text-gray-100">TODO</h2>
 					</div>
-					<div>
+					<div className="md:hidden">
 						<button>
 							<svg
 								className="w-8 h-8 text-gray-100"
@@ -39,6 +40,26 @@ const HomePage = () => {
 								/>
 							</svg>
 						</button>
+					</div>
+					<div className="hidden space-x-10 md:flex md:ml-10 md:mr-3">
+						<Link
+							to="/"
+							className="font-medium text-white hover:text-gray-300"
+						>
+							About
+						</Link>
+						<Link
+							to="/pricing"
+							className="font-medium text-white hover:text-gray-300"
+						>
+							Pricing
+						</Link>
+						<Link
+							to="/signin"
+							className="font-medium text-white hover:text-gray-300"
+						>
+							Sign In
+						</Link>
 					</div>
 				</nav>
 			</div>
